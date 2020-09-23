@@ -1,0 +1,11 @@
+Icons source:
+
+http://simplelineicons.com/
+Forked link: https://github.com/shivamkajale/simple-line-icons
+
+Bootstrap 3.3.7
+
+Download link: https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+Fonts:
+Online source: http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700
