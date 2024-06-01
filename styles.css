@@ -1,0 +1,298 @@
+/* Apply a consistent font style across the whole page */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container styles */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+br {
+  content: " ";
+  display: block;
+  margin: 8px;
+}
+
+/* Header styles */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #77aaff 3px solid;
+}
+
+header h1 {
+    float: left;
+    font-size: 30px;
+    margin-top: 0;
+}
+
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 25px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Section styles */
+section {
+    padding: 20px 0;
+    border-bottom: #77aaff 1px solid;
+    text-align: left; /* Align sections to the left */
+}
+
+section:nth-of-type(even) {
+    background: #d3d3d3; /* Light grey */
+}
+
+section:nth-of-type(odd) {
+    background: #e0e0e0; /* Slightly lighter grey */
+}
+
+section h2 {
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-top: 0; /* Align heading to the top */
+}
+
+section p {
+    font-family: 'Arial', sans-serif;
+}
+
+/* About section styles */
+.about-section {
+/*    position: relative;*/
+/*    margin-left: 30px;*/
+/*    text-align: justify;*/
+}
+
+.bio {
+/*    overflow: hidden; */
+    text-align: justify;
+    margin-top: 0px;
+/*    flex-wrap: wrap;*/
+}
+
+.carousel-container {
+    float: right; /* Float carousel to the right */
+    width: 40%; /* Fixed width for the carousel */
+    overflow: hidden;
+    background: #e0e0e0;
+    margin: 20px 0 10px 25px;
+/*    position: relative;*/
+    align-self: start; /* Ensure the carousel starts at the top */
+}
+
+/* Clearfix hack */
+/*.bio::after {
+    content: "";
+    display: table;
+    clear: both;
+}*/
+
+/*@media (max-width: 768px) {
+    .carousel-container {
+        float: none; 
+        width: 100%;
+        margin-left: 0;
+    }
+}*/
+
+
+
+/* Video container styles */
+.video-container {
+    position: relative;
+    width: 40%; /* Adjust width to 40% */
+    padding-bottom: 22.5%; /* Maintain aspect ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* News and Updates section styles */
+.news-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.news-updates {
+    width: 55%;
+    padding-left: 20px;
+}
+
+.news-updates ul {
+    list-style-type: disc; /* Add bullets */
+    padding-left: 15px; /* Add padding for bullet visibility */
+}
+
+.news-updates ul li {
+    margin-bottom: 14px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Carousel container styles */
+/*.carousel-container {
+    
+    width: 40%;
+    
+    margin: 20px auto;
+
+}
+*/
+.carousel-slide {
+    display: flex;
+    transition: transform 0.75s ease-in-out;
+    height: 100%;
+}
+
+.carousel-item {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 100%;
+/*    text-align: center;*/
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Pause sign styles */
+.carousel-pause-sign {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 18px;
+    display: none;
+    z-index: 10;
+}
+
+/* Contact section styles */
+#contact {
+    background: #d3d3d3; /* Light grey */
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; /* Adjusted width */
+    margin: 0;
+    text-align: left; /* Left align the contact form */
+}
+
+#contact-form label {
+    margin: 10px 0 5px;
+    font-family: 'Arial', sans-serif;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+    width: 100%; /* Adjusted width */
+}
+
+#contact-form textarea {
+    height: 50px; /* Make message field 100 pixels tall */
+}
+
+#contact-form button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    width: 107%; /* Adjusted width */
+}
+
+#contact-form button:hover {
+    background-color: #555;
+}
+
+/* Publications section styles */
+#publications {
+    background: #e0e0e0; /* Slightly lighter grey */
+}
+
+#publications-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+#publications-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+    margin-left: -20px;
+    font-family: 'Arial', sans-serif;
+    line-height: 100%;
+}
+
+/* Social media icons */
+#social-media-icons {
+    text-align: left;
+    padding: 20px 0;
+}
+
+#social-media-icons a {
+    margin: 0 10px;
+    color: #333;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+#social-media-icons a:hover {
+    color: #555;
+}
