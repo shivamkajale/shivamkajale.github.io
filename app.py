@@ -71,4 +71,4 @@ def send_email(name, email, message):
         server.sendmail(sender_email, recipient_email, msg.as_string())
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)  # Change the port here
+    app.run(debug=True)  # Change the port here
