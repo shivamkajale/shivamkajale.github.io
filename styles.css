@@ -96,15 +96,14 @@ section p {
 /*    flex-wrap: wrap;*/
 }
 
-.carousel-container {
-    float: right; /* Float carousel to the right */
-    width: 40%; /* Fixed width for the carousel */
+/*.carousel-container {
+    float: right; 
+    width: 40%; 
     overflow: hidden;
     background: #e0e0e0;
     margin: 20px 0 10px 25px;
-/*    position: relative;*/
-    align-self: start; /* Ensure the carousel starts at the top */
-}
+    align-self: start; 
+}*/
 
 /* Clearfix hack */
 /*.bio::after {
@@ -172,6 +171,15 @@ section p {
 
 }
 */
+.carousel-container {
+    float: right; 
+    width: 40%; 
+    overflow: hidden;
+    background: #e0e0e0;
+    margin: 20px 0 10px 25px;
+    align-self: start; 
+}
+
 .carousel-slide {
     display: flex;
     transition: transform 0.75s ease-in-out;

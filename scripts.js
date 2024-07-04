@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
     showImage(currentIndex);
     startCarousel();
 
-    // Fetch publications
-    fetch('/publications.json')
+    // Fetch publications from the JSON file
+    fetch('publications.json')
         .then(response => response.json())
         .then(data => {
             publicationsList.innerHTML = '';
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div style="margin-left: 20px;">
                         <strong>${pub.title}</strong><br>
                         ${pub.authors}<br>
-                        ${pub.journal !== 'Unknown Journal or Conference' ? `${pub.journal}` : ''}${pub.volume ? ', vol. ' + pub.volume : ''}${pub.issue ? ', no. ' + pub.issue : ''}${pub.pages ? ', pp. ' + pub.pages : ''}${doiLink ? ', ' + doiLink : ''} (${pub.year})
+                        ${pub.journal ? `${pub.journal}` : ''}${pub.volume ? ', vol. ' + pub.volume : ''}${pub.issue ? ', no. ' + pub.issue : ''}${pub.pages ? ', pp. ' + pub.pages : ''}${doiLink ? ', ' + doiLink : ''} (${pub.year})
                     </div>
                 `;
                 publicationsList.appendChild(listItem);
