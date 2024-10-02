@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magneto-optical Kerr Effect - Shivam Kajale</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Inline CSS -->
+    <style>
+        /* Center the content and limit the width */
+        .container {
+            width: 60%;  /* Limit the width to 50% */
+            margin: 0 auto;  /* Center the container */
+            padding: 20px;  /* Add padding around the content */
+            text-align: justify; /* Center the text */
+        }
+
+        /* Styling for images and captions */
+        img {
+            display: block;  /* Ensure the images are centered */
+            margin: 20px auto;  /* Center the images with margin */
+            border-radius: 8px;  /* Optional: Add slight rounding for a modern look */
+        }
+
+        .caption {
+            background-color: #f4f4f4;  /* Light background for caption box */
+            border: 1px solid #ddd;  /* Light border around caption */
+            padding: 10px;  /* Padding inside caption */
+            max-width: 90%;  /* Make sure the caption matches the image width */
+            margin: -10px auto 20px auto;  /* Adjust margin so it sticks with the image */
+            font-size: 14px;
+            color: #555;  /* Slightly darker color for captions */
+            border-radius: 4px;  /* Rounded corners for the caption box */
+            text-align: center;  /* Center align the caption text */
+        }
+
+        /* Footer styling to match the overall look */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Magneto-optical Kerr Effect (MOKE)</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <!-- <li><a href="technical_developments.html">Technical Developments</a></li> -->
+                    <!-- <li><a href="contact.html">Contact</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>Overview</h2>
+            <p>
+            The magneto-optical Kerr effect (MOKE) has become a crucial tool in studying the magnetic properties of van der Waals (vdW) materials, especially in the two-dimensional (2D) limit. Over recent years, significant progress has been made in employing optical and electrical probes to explore magnetism in vdW materials down to the monolayer scale. MOKE is particularly valuable for its non-invasive nature and ability to probe magnetization without the need for complex nanofabrication processes.
+            </p>
+            <img src="pics/moke_illustrations.png" alt="CAD Rendering of MOKE setup"  width=100%>
+            <p class="caption"><b>Left</b>: Schematic illustration of the magneto-optical Kerr effect (MOKE) principle, where linearly polarized light reflects off a magnetized surface, resulting in a rotation of the polarization angle due to out-of-plane magnetization (M).<br><br><b>Right</b>: 3D CAD rendering of the custom-built MOKE setup, designed for high-resolution, non-contact probing of magnetic properties in 2D van der Waals materials.</p>
+            <p>
+            MOKE relies on the interaction between linearly polarized light and a magnetized material. When light is reflected off the surface of a material with an out-of-plane magnetization component, its polarization direction undergoes a rotation. This rotation, known as the Kerr angle (<em>&theta;<sub>K</sub></em>), is directly related to the magnetization of the material. The Kerr angle changes depending on the direction of magnetization, allowing for precise measurements of the material's magnetic state. A polar MOKE setup, with light incident perpendicular to the sample, is especially sensitive to out-of-plane (OOP) magnetization, which is a critical feature in many vdW magnets.
+            </p>
+            <p>
+            One of the key advantages of MOKE is its ability to achieve high spatial resolution, often on the order of micrometers, through the use of a focused laser beam. This diffraction-limited resolution allows MOKE to probe small-scale magnetic domains in vdW materials, which are typically only a few atomic layers thick. As a non-contact optical technique, MOKE is ideal for characterizing air-sensitive 2D materials, avoiding exposure to damaging fabrication processes or environmental degradation.
+            </p>
+            <p>
+            In the context of 2D vdW magnets, MOKE has played an instrumental role in uncovering new magnetic phenomena. Recent studies have demonstrated its utility in investigating magnetic order in monolayer and few-layer vdW systems, such as CrI₃, Cr₂Ge₂Te₆, and Fe₃GeTe₂, where conventional magnetometers face limitations. This has made MOKE a vital tool for probing phase transitions, hysteresis, and other magnetic characteristics, furthering our understanding of low-dimensional magnetism and its potential applications in spintronic devices.
+            </p><br><br>
+            <h2>Technical Specifications</h2>
+            <ul>
+                <li>50 mW HeNe, 632.8 nm laser (CrystaLaser)</li>
+                <li>Laser spot size ~ 2 &mu;m, allowing measurements with micrometer-scale lateral precision</li>
+                <li>Out-of-plane and in-plane magnetization probing, through separate Polar MOKE and Longitudinal/Transverse MOKE paths</li>
+                <li>Balanced photodiode detection scheme for improved sensitivity</li>
+                <li>Custom projected field electromagnets built after FEM simulations and optimizations using COMSOL Multiphysics</li>
+                <li>Magnetic fields up to 2 kOe</li>
+                <li>Fast operation with 1 kOe cyclic sweep frequency up to 10 Hz</li>
+            </ul>
+            <img src="pics/moke_setup.jpg" alt="MOKE Setup" width=80%>
+            <p class="caption">Assembled MOKE setup</p>
+            <br><br>
+            <h2>Some Results</h2>
+            <p>
+                The microscope has successfully been used to probe magnetization in few micrometer wide vdW magnetic materials at room temperature. Below is an example of a Polar MOKE measurement performed on exfoliated Fe<sub>3</sub>GaTe<sub>2</sub>, which was published in <a href="https://www.nature.com/articles/s41467-024-45586-4" target="_blank">Nat Comm 15, 1485 (2024)</a>.
+            </p>
+            <img src="pics/moke_results.jpg" alt="MOKE Results" width=50%>
+            <p class="caption">Polar MOKE measurement of the vdW ferromagnet Fe<sub>3</sub>GaTe<sub>2</sub> at room temperature. <br>Inset - AFM micrograph and height profile of the Fe<sub>3</sub>GaTe<sub>2</sub> flake. Scale bar - 10 &mu;m</p>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shivam Kajale. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

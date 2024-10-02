@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPMS Instrumentation and Automation - Shivam Kajale</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .caption {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-width: 100%;
+            margin: -10px auto 20px auto;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>PPMS Instrumentation and Automation</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>Overview</h2>
+            <p>
+                The Physical Property Measurement System (PPMS) from Quantum Design, Inc. is a highly versatile magnetic cryostat and a vital tool for labs working at the intersection of condensed matter physics and nanoelectronics. In our lab, we use the PPMS extensively for magneto-transport measurements on spintronic devices and for characterizing transport properties in superconducting systems. These electrical measurements are performed using a Keithley 6221 AC/DC current source in combination with a Keithley 2182A nanovoltmeter or SRS SR860 lock-in amplifiers.
+            </p>
+            <p>
+                Due to the nature of the experiments, which often involve frequent adjustments of environmental parameters such as magnetic field, temperature, sample rotation, and applied current, the measurements can span several days. To improve efficiency and reliability, automation of these long-duration experiments is essential. To address this, I developed a comprehensive LabVIEW program that automates the control of both the PPMS and external electronics. This program allows for the execution of complex measurement sequences based on predefined scripts, enabling precise and consistent data acquisition over extended periods.
+            </p>
+            <img src="pics/ppms_setup.png" alt="PPMS Instrumentation" width=100%>
+            <p class="caption">Picture of the PPMS cabin at NCB lab. A close-up view of the external electronics is shown on the right.</p>
+            <br><br>
+
+            <h2>LabVIEW-based PPMS Interface</h2>
+            <ul>
+                <li>Allows real-time plotting of data during measurements</li>
+                <li>Supports scripted sequences for long-duration experiments. Syntax description can be found <a href="files/PPMS_Interface_Syntax.pdf" target="_blank">here</a></li>
+                <li>Compatible with AC/DC measurements like I-V and magneto-transport</li>
+            </ul>
+            <p>
+                Detailed documentation of the PPMS Interface is under development.
+            </p>
+            <p>
+                If you're someone who uses a PPMS and would like to try out my program for your experiments, please <b>feel free to reach out</b>! I would be happy to share the program and provide help in making modifications for your use. It would be a pleasure to see more people make use of the tool that I have so heartily developed.
+            </p>
+            <img src="pics/ppms_interface.png" alt="PPMS Automation" width=100%>
+            <p class="caption"><b>Left</b>: LabVIEW program developed for controlling the cryostat (temperature, magnetic field, sample rotation) and external electronics to run prolonged measurements.
+                <br>
+                <b>Right</b>: Example of a measurement sequence script, including loops (SCAN), that can be used for running long measurements without the need for continuous monitoring.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shivam Kajale. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

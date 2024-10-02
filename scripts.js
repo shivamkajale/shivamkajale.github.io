@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const carouselSlide = document.querySelector(".carousel-slide");
     const carouselItems = document.querySelectorAll(".carousel-item");
     const pauseSign = document.getElementById("pause-sign");
+    // Get the dropdown and the button
+    const dropdownButton = document.querySelector('.dropdown > a');
+    const dropdown = document.querySelector('.dropdown');
 
     let currentIndex = 0;
     let isPaused = false;
@@ -79,5 +82,17 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .catch(error => console.error("Error sending message:", error));
+    });
+
+    dropdownButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        dropdown.classList.toggle('open'); // Toggle the 'open' class to show/hide dropdown
+    });
+
+    // Optional: Close dropdown if clicked outside
+    window.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('open');
+        }
     });
 });

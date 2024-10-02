@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Material Transfer Station - Shivam Kajale</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: justify;
+        }
+        img, iframe {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        /* Flexbox styling for side-by-side video layout */
+        .video-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: 2%;
+            margin: 10px 0;
+        }
+        /* Style for each video block */
+        .video-block {
+            width: 50%;
+            text-align: center;
+            position: relative; /* For positioning the thumbnail and video */
+        }
+        .video-block img.thumbnail {
+            width: 100%;
+            height: auto;
+            cursor: pointer; /* Pointer to show that the thumbnail is clickable */
+        }
+        .video-block iframe {
+            display: none; /* Initially hide the video */
+            width: 100%;
+            height: 195px;
+        }
+        /* Captions for videos and images */
+        .caption {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>2D Material Transfer Station</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>Overview</h2>
+            <p>
+                An essential tool in fabricating devices using van der Waals (vdW) materials is a 2D material transfer setup. This system allows precise placement of selected 2D material flakes onto desired locations on a substrate. Building such a setup is critical for encapsulating air-sensitive materials like graphene and other vdW materials within stable dielectrics such as hexagonal boron nitride (hBN) and mica, ensuring their stability for characterization and use in ambient conditions.
+            </p>
+            <p>        
+            In some applications, the 2D material transfer process is also used to fabricate devices by placing vdW flakes onto pre-patterned electrodes, eliminating the need for exposing these sensitive materials to chemicals, high temperatures, and other processes involved in traditional lithography and nanofabrication techniques. This approach preserves the pristine properties of the vdW materials, which is especially important for materials like magnetic vdW heterostructures.
+            </p>
+            <!-- Video Section with side by side Google Drive videos -->
+            <div class="video-wrapper">
+                <!-- Video 1 Block with Thumbnail -->
+                <div class="video-block">
+                    <img src="pics/2dts_illustration_thumbnail.png" alt="Thumbnail for Video 1" class="thumbnail" onclick="playVideo('video1', this)">
+                    <iframe id="video1" src="https://drive.google.com/file/d/1RiiKMhoL5ixWWMjHkFA8w7M8PD98SStc/preview" allow="autoplay"></iframe>
+                    <p class="caption">Animated illustration of the 2D material transfer process</p>
+                </div>
+                <!-- Video 2 Block with Thumbnail -->
+                <div class="video-block">
+                    <img src="pics/2dts_demo_thumbnail.png" alt="Thumbnail for Video 2" class="thumbnail" onclick="playVideo('video2', this)">
+                    <iframe id="video2" src="https://drive.google.com/file/d/13cJnxJy_cCDtSaJI1Uyf_f39Sa6gbaR3/preview" allow="autoplay"></iframe>
+                    <p class="caption">Representative video of the 2D transfer process. Here, a vdW material flake from PDMS stamp is being transferred to pre-patterned Ti/Au electrodes.</p>
+                </div>
+            </div>
+            <p>
+                The transfer process often utilizes stamps made from materials such as polydimethylsiloxane (PDMS) or polypropylene carbonate (PPC). Each of these materials offers different advantages depending on the specific transfer requirements, with PDMS being flexible and transparent for easier alignment, while PPC provides more controlled adhesion during the transfer and release process.
+            </p>
+            <p> 
+            In this setup, the transfer system is housed inside a glovebox, providing a controlled, inert atmosphere to prevent contamination or degradation of the materials. To enhance efficiency and reliability, the setup is highly automated, incorporating computer-controlled motors for precise alignment, temperature control for optimized adhesion, and automated focus interfaces. This automation ensures not only reproducibility but also ease of use, making the setup ideal for handling fragile, air-sensitive materials with minimal manual intervention.
+            </p>
+
+            <h2>Technical Details</h2>
+            <ul>
+                <li>8 degrees of freedom – Translation (X, Y, Z), rotation, and tilt.</li>
+                <li>Motorized stages – LabVIEW-controlled, with precise translation and rotation.</li>
+                <li>PID-controlled heated sample stage – Temperature controlled via Peltier element.</li>
+                <li>Microscope with motorized focus – Arduino-based control from outside the glovebox.</li>
+            </ul>
+            <img src="pics/2dts_outside.png" alt="PPMS Instrumentation" width=100%>
+            <p class="caption">Component-wise details of the 2D-transfer setup. The with images were taken during the design and testing phase, before deploying it inside a glovebox</p>
+            <p> 
+            The 2D-material transfer setup is designed with eight degrees of freedom, distributed across the top and bottom stages. The bottom stage assembly enables 25mm translation along two orthogonal horizontal axes (X and Y), using Thorlabs XYT1/M stages, and allows for 360-degree in-plane rotation via a PR01/M rotation stage. The top stage assembly provides 13mm translation along three axes (X, Y, and Z) using Thorlabs RB13M/M stages, along with two-axis tilting via a GNL20/M goniometer. All stages, except the goniometer, are motorized and controlled by a custom LabVIEW program developed for this setup.
+            </p>
+            <p>  
+            Custom-designed vacuum chucks are used to hold glass slides on the top and substrates on the bottom stage. The bottom chuck is integrated with a Peltier element, allowing precise temperature control of the substrate during the transfer process. The Peltier element is powered by a Kepco BOP 36-5M power supply, with input controlled via an Omega PID controller that receives temperature feedback from a thermocouple embedded in the bottom chuck. A dedicated LabVIEW module manages the temperature set-point for the substrate.
+            </p> 
+            <img src="pics/2dts_inside.jpg" alt="Transfer Station Details" width=60%>
+            <p class="caption">View of the 2D material transfer station deployed inside the glovebox.</p>
+            <p> 
+            For microscopy, the setup uses a microscope head from Micromanipulators (got it for parts from eBay), equipped with a motorized focus mechanism. An Arduino-based stepper motor controller, integrated with a LabVIEW module, allows computer-controlled focus adjustments from outside the glovebox, ensuring precise alignment during the transfer process.
+            </p> 
+            <h2>Some Results</h2>
+            <p>
+                The 2D Materials Transfer Station has been successfully used for a variety of steps in vdW device fabrication. This includes encapsulating air-sensitive devices using hBN for stable operation in ambient conditions, creating heterostructures of vdW materials (like Fe<sub>3</sub>GaTe<sub>2</sub>/WTe<sub>2</sub>) and also for creating devices by transferring vdW flakes to pre-patterned electrodes. Shown below is an example of superconducting devices fabricated by precisely transferring an air-sensitive van der Waals material (NbSe<sub>2</sub>) on pre-patterned electrodes and then encapsulating it with hBN. The resulting devices show a sharp superconducting transition, corroborating the effectiveness of the process.
+            </p>
+            <img src="pics/2dts_data.png" alt="Transfer Station Data" width=70%>
+            <p class="caption">Optical images (top) of NbSe<sub>2</sub> devices fabricated using the 2D material transfer setup. The devices were encapsulated with hBN to preserve their air-sensitive properties. The bottom plots show the superconducting transition of these devices, with sharp drops in resistance (R<sub>xx</sub>) occurring below 7 K, indicating the onset of superconductivity. Insets show the temperature dependence of resistance over a wider temperature range, confirming the superconducting behavior.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shivam Kajale. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to replace the thumbnail with the video
+        function playVideo(videoId, thumbnail) {
+            var video = document.getElementById(videoId);
+            thumbnail.style.display = "none"; // Hide the thumbnail
+            video.style.display = "block"; // Show the video
+        }
+    </script>
+</body>
+</html>
+
