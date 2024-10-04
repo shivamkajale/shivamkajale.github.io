@@ -13,52 +13,36 @@ body {
     overflow: visible; /* Ensure no clipping occurs */
 }
 
-/* Header container */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 0;
+/* Header styles */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #77aaff 3px solid;
 }
 
-.header-left {
-    display: inline-block;
-    vertical-align: middle;
+header h1 {
+    float: left;
+    font-size: 30px;
+    margin-top: 0;
 }
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+header nav {
+    float: right;
+    margin-top: 10px;
 }
 
-/* Social media icons below the name */
-#top-social-media-icons {
-    display: flex;
-    justify-content: flex-start; /* Align icons to the left */
-    margin-top: -10px; /* Space between the name and icons */
-    gap: 15px; /* Space between each icon */
-}
-
-#top-social-media-icons a {
-    text-decoration: none;
-    color: #fff; /* Icon color */
-    font-size: 1.3em; /* Adjust icon size */
-}
-
-#top-social-media-icons a:hover {
-    color: #77aaff; /* Hover effect for icons */
-}
-
-/* Adjust nav styling */
 header nav ul {
-    display: flex;
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
+    position: relative; /* Ensure dropdowns align correctly */
+    overflow: visible; /* Force visibility for dropdowns */
 }
 
 header nav ul li {
+    display: inline;
     margin-left: 25px;
 }
 
@@ -67,15 +51,6 @@ header nav ul li a {
     text-decoration: none;
     font-size: 16px;
 }
-
-/* Keep the same background color */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-    border-bottom: 3px solid #77aaff;
-}
-
 
 /* Section styles */
 section {
@@ -249,8 +224,8 @@ section h2 {
 
 /* Social media icons */
 #social-media-icons {
-    text-align: center;
-    padding: 10px 0;
+    text-align: left;
+    padding: 20px 0;
 }
 
 #social-media-icons a {
@@ -308,12 +283,4 @@ section h2 {
 /* Handle dropdown button click */
 .dropdown > a {
     cursor: pointer;
-}
-
-#social-media-icons a .fa-envelope {
-    color: #333; /* Adjust color if needed */
-}
-
-#social-media-icons a:hover .fa-envelope {
-    color: #555; /* Adjust hover color if needed */
 }

@@ -9,42 +9,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<header>
-    <div class="container header-container">
-        <div class="header-left">
+    <header>
+        <div class="container">
             <h1>Shivam Kajale</h1>
-            <!-- Social media icons placed directly below the name -->
-            <div id="top-social-media-icons">
-                <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-                <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-        <div class="header-right">
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#news">News and Updates</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)">Tools Development</a>
+                        <a href="javascript:void(0)">Tools Development</a> <!-- Main Instrumentation link -->
                         <ul class="dropdown-content">
                             <li><a href="2dtransfer.html">2D Material Transfer Microscope</a></li>
-                            <li><a href="moke.html">Magneto-optical Kerr Effect</a></li>
+                            <li><a href="moke.html">Magneto-optical Kerr effect</a></li>
                             <li><a href="fmr.html">Ferromagnetic Resonance</a></li>
                             <li><a href="ppmsinterface.html">LabVIEW Controller for PPMS</a></li>
                         </ul>
                     </li>
-                    <li><a href="files/Shivam_CV.pdf" target="_blank">Download CV</a></li>
+                    <!-- <li><a href="gallery.html">Gallery</a></li> -->
+                    <li><a href="files/Shivam_CV.pdf" target="_blank">Download CV</a></li> <!-- New CV link -->
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
-    </div>
-</header>
-
-
+    </header>
 <section id="about">
     <div class="container about-section">
         <div class="carousel-container">
@@ -109,18 +97,22 @@
     <section id="contact">
         <div class="container">
             <h2>Contact</h2>
-            <p>   Email: skajale[at]mit[dot]edu</p>
-            <p>   Alternate Email: shivamkajale0[at]gmail[dot]com</p>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
             <div id="social-media-icons">
                 <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-                <!-- Add the new email icon -->
-                <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
                 <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </section>
-
     <script src="scripts.js"></script>
 </body>
 </html>
