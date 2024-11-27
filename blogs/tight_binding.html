@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    MathJax = {
+        tex: {
+            tags: 'all'  // Enables numbering for all display equations
+        }
+    };
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BdG modeling of Josephson Junctions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<header>
+    <div class="container header-container">
+        <div class="header-left">
+            <h1>Shivam Kajale - Blog</h1>
+        </div>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section id="blog-post">
+    <div class="container">
+        <h2>Bogoliubov-de-Gennes modeling of Josephson Junctions</h2>
+        <p><i>Last updated on November 26, 2024</i></p>
+        <p><i>I am myself learning this method for a project and the notes are updated as I progress.</i></p>
+                
+        <!-- <div class="blog-image"> -->
+            <!-- <img src="images/metamorphosis-sketch2.jpg" alt="Kafka Metamorphosis Sketch 2" style="width:100%;"> -->
+        <!-- </div> -->
+        <div class="blog-content">
+            <p>I have recently been delving into tight-binding modeling of Josephson junctions. As I have been learning to solve this system, and being rusty on my tight-binding basics (being an experimentalist), I have been finding it remarkably difficult to find examples of what the Hamiltonians matrices for these systems should look like, either in publications or through online lectures/notes. While there are several papers which use this method for solving all sorts of Josephson junctions (SIS, SNS, SFS, SFIS) and write the in-line Hamiltonian quite clearly, the whole host of symbols in these equations (\( \dagger , *, i, j, \langle\rangle, \sigma \)) can leave a newbie doubting their own construction of the matrices. So, here I am writing things as explicitly as possible to aid someone else who may not be sure about what they are doing.</p>
+
+            <p>The BdG Hamiltonian, \( \hat{H}_K \), is used to model superconductivity and electron dynamics. The equation is written as:</p>
+        
+            <div class="equation">
+                \[
+                \hat{H}_{BdG} = \sum_{i,\sigma} \epsilon_i \hat{c}_{i\sigma}^\dagger \hat{c}_{i\sigma} 
+                - \sum_{\langle i,j\rangle,\sigma} \left( t_{i,j} \hat{c}_{i,\sigma}^\dagger \hat{c}_{j,\sigma} + \text{h.c.} \right) 
+                + \sum_{i} \left( \Delta_i \hat{c}_{i,\downarrow}^\dagger \hat{c}_{i,\uparrow}^\dagger +\Delta_i^* \hat{c}_{i,\uparrow} \hat{c}_{i,\downarrow}\right).
+                \]
+            </div>
+            
+            <p>This Hamiltonian has three key components:</p>
+            <ul>
+                <li><strong>Onsite potentials (\( \epsilon_i \)):</strong> Represent energies like the chemical potential or external fields.</li>
+                <li><strong>Hopping term (\( t_{i,j} \)):</strong> Captures the kinetic energy contribution from electron hopping between neighboring sites.</li>
+                <li><strong>Pair potential (\( \Delta_i \)):</strong> Describes superconductivity within the mean-field approximation.</li>
+            </ul>
+            
+            <p>In most cases, the system is assumed to be homogeneous, with uniform hopping (\( t_{i,j} = t \)) and a constant pair potential (\( \Delta_i = \Delta_0 \)). This simplification helps in understanding superconducting systems while retaining the essential physics. Note that in the following discussion, I will drop the "hats" from the operator.</p>
+
+            <h3>BdG Hamiltonian – Single Atom</h3>
+                <p>The BdG hamiltonian is written in the basis of the Nambu spinor, wherein, each lattice site is represented through four elements - creation and annilation of electrons, of spins up and down. The Nambu spinor is given by - </p>
+                <div class="equation">
+                    $$ \Psi = \begin{pmatrix} c_\uparrow \\ c_\downarrow \\ c^\dagger_\uparrow \\ c^\dagger_\downarrow \end{pmatrix} $$
+                </div>
+                <p>where \( c_\uparrow \) and \( c_\downarrow \) are annihilation operators for spin-up and spin-down electrons, and \( c^\dagger_\uparrow \) and \( c^\dagger_\downarrow \) are their corresponding creation operators. In this basis, the full BdG hamiltonian can be written as </p>
+                <div class="equation">
+                    $$ H = \sum_{i,j} c^\dagger_i h_{ij} c_j $$
+                </div>
+                <p>where \( h_{ij} \) are elements of the Hamiltonian matrix \( H_{BdG} \). For a single-site system, \( H_{BdG} \) is a 4 \( \times \) 4 matrix which can be written in a block form as</p>
+                <div class="equation">
+                    $$ H_{BdG} = \begin{pmatrix} H_0 & \Delta \\ \Delta^\dagger & -H_0^T \end{pmatrix} $$
+                </div>
+                <p>Although the block form is not a major simplification for a single-site system, its form remains the same for a long chain of atoms too, and hence its good to get introduced to it already. Anyway, for the single-site system, the blocks in the Hamiltonian above are 2 \( \times \) 2 each, and given by</p>
+                
+                <div class="equation">
+                	$$ H_0 = \begin{pmatrix} \epsilon_k & 0 \\ 0 & \epsilon_k \end{pmatrix}, \quad \Delta = \begin{pmatrix} 0 & \Delta_0 \\ -\Delta_0 & 0 \end{pmatrix}$$
+                </div>
+                <p>Here, \( \epsilon_k \) is the onsite energy term and \( \Delta_0 \) is the superconducting gap magnitude. The anti-symmetry of the off-diagonal terms in \( \Delta \) ensures the spin-singlet pairing, i.e. \( \Delta_{\uparrow\downarrow} = -\Delta_{\downarrow\uparrow} \). To get a more intuitive picture of how the coefficients correspond to the Nambu spinor elements, the array representation below could be helpful</p>
+                <div class="equation">
+                	$$ 
+					\begin{array}
+					 cc_{\uparrow}^\dagger (\epsilon_k) c_{\uparrow} & c_{\uparrow}^\dagger(0)c_{\downarrow} & c_{\uparrow}^\dagger(0)c_{\uparrow}^\dagger & c_{\uparrow}^\dagger (\Delta_0) c_{\downarrow}^\dagger \\
+					c_{\downarrow}^\dagger(0)c_{\uparrow} & c_{\downarrow}^\dagger (\epsilon_k) c_{\downarrow} & c_{\downarrow}^\dagger (-\Delta_0) c_{\uparrow}^\dagger & c_{\downarrow}^\dagger(0)c_{\downarrow}^\dagger \\
+					c_{\uparrow}(0)c_{\uparrow} & c_{\uparrow}(-\Delta_0)c_{\downarrow} & c_{\uparrow}(-\epsilon_k)c_{\uparrow}^\dagger & c_{\uparrow}(0)c_{\downarrow}^\dagger \\
+					c_{\downarrow}(\Delta_0)c_{\uparrow} & c_{\downarrow}(0)c_{\downarrow} & c_{\downarrow}(0)c_{\uparrow}^\dagger & c_{\downarrow}(-\epsilon_k)c_{\downarrow}^\dagger
+					\end{array}
+					$$
+                </div>
+            <h3>Two sites - Hopping term</h3>
+                <p>When we go from a single-site to two sites, we need to additionally consider the energy (\( -t \)) associated with electrons hopping between the two sites. Here, we assume that electron hopping preserves the spin, i.e. the hopping energy is only associated with \( c_{i,\sigma}^\dagger c_{j,\sigma} \) for electrons and \( c_{i,\sigma} c_{j,\sigma}^\dagger \) for holes, but not with \( c_{i,\sigma}^\dagger c_{j,-\sigma} \) or \( c_{i,\sigma} c_{j,-\sigma}^\dagger \), where i, j are the site indices and \( \sigma \in \{\uparrow, \downarrow\} \). The Hamiltonian for the two-site system when represented as in (3) is now an 8 \( \times \) 8 matrix, with \( H_0 \) and \( \Delta \) taking the form </p>
+                <div class="equation">
+                    $$
+                    H_0 = \begin{pmatrix}
+                    \epsilon_k & 0 & -t & 0\\
+                    0 & \epsilon_k & 0 & -t\\
+                    -t & 0 & \epsilon_k & 0\\
+                    0 & -t & 0 & \epsilon_k\\
+                    \end{pmatrix}, \quad
+                    \Delta = \begin{pmatrix}
+                    0 & \Delta_0 & 0 & 0\\
+                    -\Delta_0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & \Delta_0\\
+                    0 & 0 & -\Delta_0 & 0\\
+                    \end{pmatrix}.
+                    $$
+                </div>
+                <p>With the self-energy, superconducting gap and hopping terms accounted for, the tight-bonding Hamiltonian for longer chains can be written by simply expanding the matrix and filling the three kinds of terms correctly. In most cases, the hopping term is limited to the nearest neighbor sites (usually denoted as \( \langle i,j\rangle \)). These three types of terms also happen to be all we need to model a S-N-S Josephson junction, as we will see next.</p>
+            <h3>Modelling an SNS Josephson junction</h3>
+                <p>We can model an SNS system by appropriately choosing the values of \( \epsilon_k, t \) and \( \Delta_0 \) for the superconducting and normal metal sites. In particular, \( \Delta_0 \) is set to zero for the normal metal region. For an insulating barrier (SIS junction), we should additionally choose \( \epsilon_{k,I} >> \epsilon_{k,S} \) and \( t_{I} << t_{S} \). Furthermore, the two superconducting regions can have a phase difference, \( \phi \). This can be accounted for by setting \( \Delta_{S1} = \Delta_0e^{-i\phi/2} \) and \( \Delta_{S2} = \Delta_0e^{i\phi/2} \).</p>
+                <p>As a toy example, I will try to write down the full Hamiltonian matrix for an SNS junction with a single-site in each region, which already ends up being 12 \( \times \) 12 in size. The basis for this Hamiltonian shall be</p>
+                <div class="equation">
+                    $$ \Psi = \begin{pmatrix} 
+                    c_{S1\uparrow} & c_{S1\downarrow} & c_{N\uparrow} & c_{N\downarrow} & c_{S2\uparrow} & c_{S2\downarrow} & c_{S1\uparrow}^\dagger & c_{S1\downarrow}^\dagger & c_{N\uparrow}^\dagger & c_{N\downarrow}^\dagger & c_{S2\uparrow}^\dagger & c_{S2\downarrow}^\dagger
+                    \end{pmatrix}^T $$
+                </div>
+                <p>Once again, the full Hamiltonian can be expressed in block form as shown in (3), with \( H_0 \) and \( \Delta \) taking the form</p>
+                <div class="equation">
+                    $$
+                    H_0 = \begin{pmatrix}
+                    \epsilon_S & 0 & -t & 0 & 0 & 0\\
+                    0 & \epsilon_S & 0 & -t & 0 & 0\\
+                    -t & 0 & \epsilon_N & 0 & -t & 0\\
+                    0 & -t & 0 & \epsilon_N & 0 & -t\\
+                    0 & 0 & -t & 0 & \epsilon_S & 0\\
+                    0 & 0 & 0 & -t & 0 & \epsilon_S\\
+                    \end{pmatrix},
+                    $$
+                </div>
+                <div class="equation">
+                    $$
+                    \Delta = \begin{pmatrix}
+                    0 & \Delta_{S1} & 0 & 0 & 0 & 0\\
+                    -\Delta_{S1} & 0 & 0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 & \Delta_{S1}\\
+                    0 & 0 & 0 & 0 & -\Delta_{S1} & 0\\
+                    \end{pmatrix}.
+                    $$
+                </div>
+                <p>So, finally, the full Hamiltonian matrix for the three-site SNS Josephson junction is (drum-roll ...) </p>
+                <div class="equation">
+                    $$
+                    H^{SNS}_{BdG} = \begin{pmatrix}
+                        \epsilon_S & 0 & -t & 0 & 0 & 0 & 0 & \Delta_{S1} & 0 & 0 & 0 & 0 \\
+                        0 & \epsilon_S & 0 & -t & 0 & 0 & -\Delta_{S1} & 0 & 0 & 0 & 0 & 0 \\
+                        -t & 0 & \epsilon_N & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                        0 & -t & 0 & \epsilon_N & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 \\
+                        0 & 0 & -t & 0 & \epsilon_S & 0 & 0 & 0 & 0 & 0 & 0 & \Delta_{S1} \\
+                        0 & 0 & 0 & -t & 0 & \epsilon_S & 0 & 0 & 0 & 0 & -\Delta_{S1} & 0 \\
+                        0 & -\Delta_{S2} & 0 & 0 & 0 & 0 & -\epsilon_S & 0 & t & 0 & 0 & 0 \\
+                        \Delta_{S2} & 0 & 0 & 0 & 0 & 0 & 0 & -\epsilon_S & 0 & t & 0 & 0 \\
+                        0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\epsilon_N & 0 & t & 0 \\
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\epsilon_N & 0 & t \\
+                        0 & 0 & 0 & 0 & 0 & -\Delta_{S2} & 0 & 0 & t & 0 & -\epsilon_S & 0 \\
+                        0 & 0 & 0 & 0 & \Delta_{S2} & 0 & 0 & 0 & 0 & t & 0 & -\epsilon_S
+                    \end{pmatrix}.
+                    $$
+                </div>
+                <br>
+                <p><i>MATLAB/Python scripts for solving the Hamiltonian to calculate the Andreev bound states spectrum and current-phase relation (CPR) of the junctions will soon be posted, along with some example results. Next, I will also delve into replacing the normal metal/insulator with a ferromagnet, and perhaps reproduce the 0-\( \pi \) transitions expected for the SFS Josephson junctions.</i></p>
+                <p><i>In the meantime, feedback and questions are welcome!</i></p>
+            </div>
+
+        <div id="share-section">
+            <h3>Share this post</h3>
+            <a href="https://twitter.com/share?url=https://shivamkajale.github.io/blogs/metamorphosis.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://shivamkajale.github.io/blogs/metamorphosis.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?url=https://shivamkajale.github.io/blogs/metamorphosis.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+        </div>
+        
+        <div class="navigation">
+            <a href="metamorphosis.html" class="nav-left">Previous</a>
+            <a href="#" class="nav-right">Next</a>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="container">
+            <h2>Contact</h2>
+            <p>   Email: skajale[at]mit[dot]edu</p>
+            <p>   Alternate Email: shivamkajale0[at]gmail[dot]com</p>
+            <div id="social-media-icons">
+                <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+                <!-- Add the new email icon -->
+                <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        <p><center>&copy; 2024 Shivam Kajale. All rights reserved.</center> </p>
+    </div>
+</footer>
+
+</body>
+</html>
