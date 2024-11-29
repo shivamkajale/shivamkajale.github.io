@@ -188,13 +188,13 @@
     </div> 
     <p>So, calculating the current operator boils down to calculating the commutator of the superconductor Hamiltonian and the number operator, i.e. \( [\hat{H},\hat{n}] \), and that is what I will show step-by-step below. Let's first define the two operators:</p>
     <div class="equation">
-        $$ \hat{H} = \sum_{k,\sigma} \epsilon_k \hat{c}_{k\sigma}^\dagger \hat{c}_{k\sigma} + \sum_{k} \left( \Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{k\uparrow}^\dagger +\Delta_k^* \hat{c}_{k\uparrow} \hat{c}_{k\downarrow}\right), \quad \hat{n} = \sum_{m,\tau} \hat{c}_{m\tau}^\dagger \hat{c}_{m\tau} $$
+        $$ \hat{H} = \sum_{k,\sigma} \epsilon_k \hat{c}_{k\sigma}^\dagger \hat{c}_{k\sigma} + \sum_{k} \left( \Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{-k\uparrow}^\dagger +\Delta_k^* \hat{c}_{-k\uparrow} \hat{c}_{k\downarrow}\right), \quad \hat{n} = \sum_{m,\tau} \hat{c}_{m\tau}^\dagger \hat{c}_{m\tau} $$
     </div>
     <p>To make the calculation managable, I will handle the commutation piece-wise, by taking the terms in the Hamiltonian one at a time. So, let's define \( \hat{H} = \hat{H_1}+\hat{H_2}+\hat{H_3} \), where</p>
     <div class="equation">
         $$  \hat{H_1} = \sum_{k,\sigma} \epsilon_k \hat{c}_{k\sigma}^\dagger \hat{c}_{k\sigma}, \quad 
-            \hat{H_2} = \sum_{k}\Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{k\uparrow}^\dagger, \quad 
-            \hat{H_3} = \sum_{k}\Delta_k^* \hat{c}_{k\uparrow} \hat{c}_{k\downarrow}, $$
+            \hat{H_2} = \sum_{k}\Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{-k\uparrow}^\dagger, \quad 
+            \hat{H_3} = \sum_{k}\Delta_k^* \hat{c}_{-k\uparrow} \hat{c}_{k\downarrow}, $$
     </div>
     <p>such that,</p>
     <div class="equation">
@@ -231,16 +231,16 @@
     <p>Neat! There's something satisfying about getting a zero at the end of a long algebriac ordeal. Now let's go for the second term on the right hand side of (16), i.e.</p>
     <div class="equation">
         $$ \begin{aligned}\
-            [H_2,n] &= \sum_{k,m,\tau}\Delta_k \left( c_{k\downarrow}^\dagger \textcolor{green}{c_{k\uparrow}^\dagger c_{m\tau}^\dagger} c_{m\tau} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( -\textcolor{green}{c_{k\downarrow}^\dagger c_{m\tau}^\dagger} c_{k\uparrow}^\dagger c_{m\tau} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( c_{m\tau}^\dagger c_{k\downarrow}^\dagger \textcolor{green}{c_{k\uparrow}^\dagger c_{m\tau}} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( c_{m\tau}^\dagger c_{k\downarrow}^\dagger \left( -c_{m\tau} c_{k\uparrow}^\dagger + \delta_{km}\delta_{\uparrow\tau} \right) - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( -c_{m\tau}^\dagger \textcolor{green}{c_{k\downarrow}^\dagger c_{m\tau}} c_{k\uparrow}^\dagger + \delta_{km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( -c_{m\tau}^\dagger \left( -c_{m\tau} c_{k\downarrow}^\dagger +\delta_{km}\delta_{\downarrow\tau} \right) c_{k\uparrow}^\dagger + \delta_{km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( \textcolor{red}{c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger} -\delta_{km}\delta_{\downarrow\tau} c_{m\tau}^\dagger c_{k\uparrow}^\dagger+ \delta_{km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - \textcolor{red}{c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger} \right) \\
-            &= \sum_{k,m,\tau}\Delta_k \left( -\delta_{km}\delta_{\downarrow\tau} c_{m\tau}^\dagger c_{k\uparrow}^\dagger+ \delta_{km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger \right) \\
-            &= \sum_{k}\Delta_k \left( -c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger + \textcolor{green}{c_{k\uparrow}^\dagger c_{k\downarrow}^\dagger} \right) \\
-            &= \sum_{k}\Delta_k \left( -2c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
+            [H_2,n] &= \sum_{k,m,\tau}\Delta_k \left( c_{k\downarrow}^\dagger \textcolor{green}{c_{-k\uparrow}^\dagger c_{m\tau}^\dagger} c_{m\tau} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( -\textcolor{green}{c_{k\downarrow}^\dagger c_{m\tau}^\dagger} c_{-k\uparrow}^\dagger c_{m\tau} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( c_{m\tau}^\dagger c_{k\downarrow}^\dagger \textcolor{green}{c_{-k\uparrow}^\dagger c_{m\tau}} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( c_{m\tau}^\dagger c_{k\downarrow}^\dagger \left( -c_{m\tau} c_{-k\uparrow}^\dagger + \delta_{-km}\delta_{\uparrow\tau} \right) - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( -c_{m\tau}^\dagger \textcolor{green}{c_{k\downarrow}^\dagger c_{m\tau}} c_{-k\uparrow}^\dagger + \delta_{-km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( -c_{m\tau}^\dagger \left( -c_{m\tau} c_{k\downarrow}^\dagger +\delta_{km}\delta_{\downarrow\tau} \right) c_{-k\uparrow}^\dagger + \delta_{-km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( \textcolor{red}{c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger} -\delta_{km}\delta_{\downarrow\tau} c_{m\tau}^\dagger c_{-k\uparrow}^\dagger+ \delta_{-km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger - \textcolor{red}{c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger} \right) \\
+            &= \sum_{k,m,\tau}\Delta_k \left( -\delta_{km}\delta_{\downarrow\tau} c_{m\tau}^\dagger c_{-k\uparrow}^\dagger+ \delta_{-km}\delta_{\tau\uparrow}c_{m\tau}^\dagger c_{k\downarrow}^\dagger \right) \\
+            &= \sum_{k}\Delta_k \left( -c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger + \textcolor{green}{c_{-k\uparrow}^\dagger c_{k\downarrow}^\dagger} \right) \\
+            &= \sum_{k}\Delta_k \left( -2c_{k\downarrow}^\dagger c_{-k\uparrow}^\dagger \right) \\
             \therefore [H_2,n] &= -2H_2
            \end{aligned} $$
     </div>
@@ -248,12 +248,12 @@
     <div class="equation">
         $$ \begin{align}
         [\hat{H},\hat{n}] &= -2\hat{H_2}+2\hat{H_3} \\
-        &= -2\sum_{k} \left( \Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{k\uparrow}^\dagger -\Delta_k^* \hat{c}_{k\uparrow} \hat{c}_{k\downarrow}\right)
+        &= -2\sum_{k} \left( \Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{-k\uparrow}^\dagger -\Delta_k^* \hat{c}_{-k\uparrow} \hat{c}_{k\downarrow}\right)
         \end{align}$$
     </div>
     <p>Expressing the superconducting order parameter as \( \Delta e^{i\phi} \) in (14), we can see that</p>
     <div class="equation">
-        $$ \frac{d\hat{H}}{d\phi} = i\sum_{k}\left( \Delta e^{i\phi} \hat{c}_{k\downarrow}^\dagger \hat{c}_{k\uparrow}^\dagger -\Delta e^{-i\phi} \hat{c}_{k\uparrow} \hat{c}_{k\downarrow}\right)
+        $$ \frac{d\hat{H}}{d\phi} = i\sum_{k}\left( \Delta e^{i\phi} \hat{c}_{k\downarrow}^\dagger \hat{c}_{-k\uparrow}^\dagger -\Delta e^{-i\phi} \hat{c}_{-k\uparrow} \hat{c}_{k\downarrow}\right)
         $$
     </div>
     <p>So, from (23) and (24), we find that</p>
