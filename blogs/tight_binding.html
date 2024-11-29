@@ -174,7 +174,7 @@
                 <br><br>
     <h2>Current calculation</h2>
 
-    <p>Now that we have built the Hamiltonian of our device, we should be able to calculate some observables of interest. And what better to look into than the device current? So, that is what we will try to figure out here. Also, in keeping up with this blog's spirit of being as explicit as possible, let's do this from first the principles, without skipping any steps! </p>
+    <p>Now that we have built the Hamiltonian of our device, we should be able to calculate some observables of interest. And what better to look into than the device current? So, that is what we will try to figure out here. Also, in keeping up with this blog's spirit of being as explicit as possible, let's do this from the first principles, without skipping any steps! </p>
         <p>The current operator for our superconducting device can be defined as the rate of change of the particle "number" operator with respect to time, i.e.</p>
     <div class="equation">
         $$ \hat{I} = e \frac{d\hat{n}}{dt}, $$
@@ -197,7 +197,7 @@
     <div class="equation">
         $$ [\hat{H},\hat{n}] = [\hat{H_1},\hat{n}] + [\hat{H_2},\hat{n}] + [\hat{H_3},\hat{n}] $$
     </div>
-    <p>For some of the gory steps below, I will drop the "hats" in the opeartor notations. Also, before we jump into the calculation, let us also recall the fermionic anti-commutation relations which are needed for the algebra here - </p>
+    <p>For some of the gory steps below, I will drop the "hats" in the operator notations. Also, before we jump into the calculation, let us recall the fermionic anti-commutation relations which are needed for the algebra here - </p>
     <div class="equation">
         $$ \{ c_i,c_j^\dagger\} = c_ic_j^\dagger + c_j^{\dagger}c_i = \delta_{ij}, $$
     </div>
@@ -207,7 +207,7 @@
     <div class="equation">
         $$ \{ c_i,c_j \} = c_ic_j + c_jc_i = 0. $$
     </div>
-    <p>To make it easier to follow the simplifications below, I have highlighted in green the pairs of terms on which I apply an anticommutation relation. With that out of they way, let's start with the first term on the right hand side of (16).</p>
+    <p>To make it easier to follow the simplifications below, I have highlighted in green the pairs of terms on which I apply an anticommutation relations. With that out of they way, let's start with the first term on the right hand side of (16).</p>
     <div class="equation">
         $$ \begin{aligned}\
             [H_1,n] &= \sum_{k,m,\sigma,\tau}\epsilon_k \left( c_{k\sigma}^\dagger \textcolor{green}{c_{k\sigma} c_{m\tau}^\dagger} c_{m\tau} - c_{m\tau}^\dagger c_{m\tau}c_{k\sigma}^\dagger c_{k\sigma} \right) \\
@@ -225,7 +225,7 @@
             \therefore [H_1,n] &= 0
            \end{aligned} $$
     </div>
-    <p>Neat! Now let's go for the second term on the right hand side of (16), i.e.</p>
+    <p>Neat! There's something satisfying about getting a zero at the end of a long algebriac ordeal. Now let's go for the second term on the right hand side of (16), i.e.</p>
     <div class="equation">
         $$ \begin{aligned}\
             [H_2,n] &= \sum_{k,m,\tau}\Delta_k \left( c_{k\downarrow}^\dagger \textcolor{green}{c_{k\uparrow}^\dagger c_{m\tau}^\dagger} c_{m\tau} - c_{m\tau}^\dagger c_{m\tau} c_{k\downarrow}^\dagger c_{k\uparrow}^\dagger \right) \\
@@ -285,7 +285,7 @@
         \end{aligned}
         $$
     </div>
-    <p>Thus, using (26), (27) and (29), the current through the device can be calculated using </p>
+    <p>Thus, using (26), (27) and (29), the current through the device can be calculated as </p>
     <div class="equation">
         $$ \boxed{ 
             \begin{aligned}
