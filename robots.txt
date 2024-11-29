@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://shivamkajale.github.io/sitemap.xml

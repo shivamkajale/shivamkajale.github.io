@@ -13,7 +13,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed notes for the mean-field, tight-binding calculations of Josephson junction, using the Bogoliubov de-Gennes formalism">
+    <meta name="keywords" content="josephson junctions, BdG, Bogoliubov, Bogoliubov-de-Gennes, tight-binding, SNS junction, superconducting">
     <title>BdG modeling of Josephson Junctions</title>
+    <link rel="canonical" href="https://shivamkajale.github.io/blogs/tight_binding.html">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -68,7 +71,7 @@
             <p>In most cases, the system is assumed to be homogeneous, with uniform hopping (\( t_{i,j} = t \)) and a constant pair potential (\( \Delta_i = \Delta_0 \)). This simplification helps in understanding superconducting systems while retaining the essential physics. Note that in the following discussion, I will drop the "hats" from the operator.</p>
 
             <h3>BdG Hamiltonian – Single Atom</h3>
-                <p>The BdG hamiltonian is written in the basis of the Nambu spinor, wherein, each lattice site is represented through four elements - creation and annilation of electrons, of spins up and down. The Nambu spinor is given by - </p>
+                <p>The BdG hamiltonian is written in the basis of the Nambu spinor, wherein, each lattice site is represented through four elements - creation and annihilation of electrons, of spins up and down. The Nambu spinor is given by - </p>
                 <div class="equation">
                     $$ \Psi = \begin{pmatrix} c_\uparrow \\ c_\downarrow \\ c^\dagger_\uparrow \\ c^\dagger_\downarrow \end{pmatrix} $$
                 </div>
@@ -114,7 +117,7 @@
                     \end{pmatrix}.
                     $$
                 </div>
-                <p>With the self-energy, superconducting gap and hopping terms accounted for, the tight-bonding Hamiltonian for longer chains can be written by simply expanding the matrix and filling the three kinds of terms correctly. In most cases, the hopping term is limited to the nearest neighbor sites (usually denoted as \( \langle i,j\rangle \)). These three types of terms also happen to be all we need to model a S-N-S Josephson junction, as we will see next.</p>
+                <p>With the self-energy, superconducting gap and hopping terms accounted for, the tight-binding Hamiltonian for longer chains can be written by simply expanding the matrix and filling the three kinds of terms correctly. In most cases, the hopping term is limited to the nearest neighbor sites (usually denoted as \( \langle i,j\rangle \)). These three types of terms also happen to be all we need to model an S-N-S Josephson junction, as we will see next.</p>
             <h3>Modelling an SNS Josephson junction</h3>
                 <p>We can model an SNS system by appropriately choosing the values of \( \epsilon_k, t \) and \( \Delta_0 \) for the superconducting and normal metal sites. In particular, \( \Delta_0 \) is set to zero for the normal metal region. For an insulating barrier (SIS junction), we should additionally choose \( \epsilon_{k,I} >> \epsilon_{k,S} \) and \( t_{I} << t_{S} \). Furthermore, the two superconducting regions can have a phase difference, \( \phi \). This can be accounted for by setting \( \Delta_{S1} = \Delta_0e^{-i\phi/2} \) and \( \Delta_{S2} = \Delta_0e^{i\phi/2} \).</p>
                 <p>As a toy example, I will try to write down the full Hamiltonian matrix for an SNS junction with a single-site in each region, which already ends up being 12 \( \times \) 12 in size. The basis for this Hamiltonian shall be</p>
@@ -183,7 +186,7 @@
     <div class="equation">
         $$ \hat{I} = \frac{ie}{\hbar}[\hat{H},\hat{n}]. $$
     </div> 
-    <p>So, calculating the current operator boils down to calculating the commutator of the superconductor Hamiltonian and the number operator, i.e. \( [\hat{H},\hat{n}] \), and that is what I will show step-by-up below. Let's first define the two operators:</p>
+    <p>So, calculating the current operator boils down to calculating the commutator of the superconductor Hamiltonian and the number operator, i.e. \( [\hat{H},\hat{n}] \), and that is what I will show step-by-step below. Let's first define the two operators:</p>
     <div class="equation">
         $$ \hat{H} = \sum_{k,\sigma} \epsilon_k \hat{c}_{k\sigma}^\dagger \hat{c}_{k\sigma} + \sum_{k} \left( \Delta_k \hat{c}_{k\downarrow}^\dagger \hat{c}_{k\uparrow}^\dagger +\Delta_k^* \hat{c}_{k\uparrow} \hat{c}_{k\downarrow}\right), \quad \hat{n} = \sum_{m,\tau} \hat{c}_{m\tau}^\dagger \hat{c}_{m\tau} $$
     </div>
@@ -207,7 +210,7 @@
     <div class="equation">
         $$ \{ c_i,c_j \} = c_ic_j + c_jc_i = 0. $$
     </div>
-    <p>To make it easier to follow the simplifications below, I have highlighted in green the pairs of terms on which I apply an anticommutation relations. With that out of they way, let's start with the first term on the right hand side of (16).</p>
+    <p>To make it easier to follow the simplifications below, I have highlighted in green the pairs of terms on which I apply an anticommutation relations. With that out of the way, let's start with the first term on the right hand side of (16).</p>
     <div class="equation">
         $$ \begin{aligned}\
             [H_1,n] &= \sum_{k,m,\sigma,\tau}\epsilon_k \left( c_{k\sigma}^\dagger \textcolor{green}{c_{k\sigma} c_{m\tau}^\dagger} c_{m\tau} - c_{m\tau}^\dagger c_{m\tau}c_{k\sigma}^\dagger c_{k\sigma} \right) \\
