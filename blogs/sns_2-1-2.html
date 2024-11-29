@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIS Hamiltonian - 2/1/2 sites</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="equation">
+                    $$
+                    H^{SIS}_{BdG} = \begin{pmatrix}
+                        \mu  & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & \mu  & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        -t & 0 & \mu  & 0 & -\mathrm{tI} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & -t & 0 & \mu  & 0 & -\mathrm{tI} & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & -\mathrm{tI} & 0 & \mathrm{eI} & 0 & -\mathrm{tI} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & -\mathrm{tI} & 0 & \mathrm{eI} & 0 & -\mathrm{tI} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & -\mathrm{tI} & 0 & \mu  & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & -\mathrm{tI} & 0 & \mu  & 0 & -t & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & -t & 0 & \mu  & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{\frac{ia}{2}}\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & -t & 0 & \mu  & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0\\ 
+                        0 & -\Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\mu  & 0 & t & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        \Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\mu  & 0 & t & 0 & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\mu  & 0 & \mathrm{tI} & 0 & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & \Delta\,{\mathrm{e}}^{\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\mu  & 0 & \mathrm{tI} & 0 & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \mathrm{tI} & 0 & -\mathrm{eI} & 0 & \mathrm{tI} & 0 & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \mathrm{tI} & 0 & -\mathrm{eI} & 0 & \mathrm{tI} & 0 & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & \mathrm{tI} & 0 & -\mu  & 0 & t & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \mathrm{tI} & 0 & -\mu  & 0 & t\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\mu  & 0\\ 
+                        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \Delta\,{\mathrm{e}}^{-\frac{ia}{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & t & 0 & -\mu
+                    \end{pmatrix}
+                    $$
+    </div>
+
+</body>
+</html>
