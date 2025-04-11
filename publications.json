@@ -1,11 +1,22 @@
 [
     {
+        "title": " A wearable device for continuous monitoring of circulating cells at single-cell resolution",
+        "authors": "Kyuho Jang, Shivam N. Kajale, Baju C. Joy, David C. Bono, Brian Neltner, Deblina Sarkar",
+        "journal": "npj Biosensing",
+        "volume": "2",
+        "issue": "10",
+        "pages": "",
+        "year": "2025",
+        "doi": "10.1038/s44328-025-00032-3",
+        "url": "https://doi.org/10.1038/s44328-025-00032-3"
+    },
+    {
         "title": "Van der Waals magnetic materials for current-induced control toward spintronic applications",
         "authors": "Jeongchun Ryu, Shivam Nitin Kajale, Deblina Sarkar",
         "journal": "MRS Communications",
-        "volume": "",
+        "volume": "14",
         "issue": "",
-        "pages": "",
+        "pages": "1113-1126",
         "year": "2024",
         "doi": "10.1557/s43579-024-00673-x",
         "url": "https://doi.org/10.1557/s43579-024-00673-x"
