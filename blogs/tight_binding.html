@@ -22,6 +22,52 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script type="text/javascript" id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: justify;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            border-bottom: #77aaff 3px solid;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            text-align: left;
+        }
+        h1{
+            text-align: left;
+        }
+        h2{
+            text-align: left;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            img {
+                width: 100% !important;
+                height: auto;
+            }
+            .header-flex h1 {
+                font-size: 20px;
+                line-height: 1.2;
+                word-break: break-word;
+                max-width: 75%;
+                text-align: left;
+            }
+        }
+        </style>
 </head>
 <body>
 <header>

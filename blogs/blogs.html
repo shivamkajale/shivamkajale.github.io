@@ -1,39 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    MathJax = {
-        tex: {
-            tags: 'all'  // Enables numbering for all display equations
-        }
-    };
-</script>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivam Kajale - Blogs index</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script type="text/javascript" id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shivam Kajale - Blogs index</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 10px 0;
+      border-bottom: #77aaff 3px solid;
+    }
+    .header-container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      position: relative;
+    }
+    .header-container h1 {
+      font-size: 24px;
+      margin: 0;
+      word-break: break-word;
+      max-width: 80%;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 20px;
+      flex-direction: row;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h3 {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    h3 i {
+      margin-left: 10px;
+    }
+    #social-media-icons {
+      text-align: center;
+      padding: 20px 0;
+    }
+    #social-media-icons a {
+      margin: 0 10px;
+      color: #888;
+      font-size: 24px;
+      text-decoration: none;
+    }
+    #social-media-icons a:hover {
+      color: #eee;
+    }
+    footer {
+      background-color: #333;
+      color: #ccc;
+      padding: 10px 0;
+      text-align: left;
+      margin-top: 40px;
+    }
+   @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: #444;
+        width: 100%;
+        display: none;
+      }
+      nav ul.show-menu {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .header-flex {
+        flex-direction: row;
+      }
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("show-menu");
+    }
+  </script>
 </head>
 <body>
-<header>
+  <header>
     <div class="container header-container">
-        <div class="header-left">
-            <h1>Shivam Kajale - Blogs index</h1>
-        </div>
-        <div class="header-right">
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+      <h1>Shivam Kajale - Blogs index</h1>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-</header>
+  </header>
+
+
 
 <section id="blog-post">
     <div class="container">
@@ -55,21 +151,20 @@
     </div>
 </section>
 
-<footer id="contact">
+  <footer id="contact">
     <div class="container">
-            <h2>Contact</h2>
-            <p>   Email: skajale[at]mit[dot]edu</p>
-            <p>   Alternate Email: shivamkajale0[at]gmail[dot]com</p>
-            <div id="social-media-icons">
-                <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-                <!-- Add the new email icon -->
-                <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-        <p><center>&copy; 2024 Shivam Kajale. All rights reserved.</center> </p>
+      <h2>Contact</h2>
+      <p>Email: skajale[at]mit[dot]edu</p>
+      <p>Alternate Email: shivamkajale0[at]gmail[dot]com</p>
+      <div id="social-media-icons">
+        <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+        <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>&copy; 2024 Shivam Kajale. All rights reserved.</p>
     </div>
-</footer>
+  </footer>
 
 </body>
 </html>

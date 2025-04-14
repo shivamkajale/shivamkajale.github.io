@@ -6,17 +6,203 @@
     <meta name="description" content="My thoughts on Frank Kafka's classic novella Metamorphosis.">
     <meta name="keywords" content="Kafka, Frank Kafka, Metamorphosis, book review, absurdism, existentialism">
     <title>Metamorphosis - Blog Post</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="canonical" href="https://shivamkajale.github.io/blogs/metamorphosis.html">
+    <style>
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: justify;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            img {
+                width: 100% !important;
+                height: auto;
+            }
+            .header-flex h1 {
+                font-size: 20px;
+                line-height: 1.2;
+                word-break: break-word;
+                max-width: 75%;
+            }
+        }
+        h2 {
+            display: block;
+          word-break: break-word;
+          line-height: 1.3;
+          white-space: normal;
+          overflow-wrap: break-word;
+          hyphens: auto;
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-top: 1.5em;
+          margin-bottom: 0.5em;
+          text-align: left;
+        }
+        .caption {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-width: 100%;
+            margin: -10px auto 20px auto;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #social-media-icons {
+            text-align: center;
+            padding: 20px 0;
+        }
+        #social-media-icons a {
+            margin: 0 10px;
+            color: #888;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        #social-media-icons a:hover {
+            color: #eee;
+        }
+        footer {
+            background-color: #333;
+            color: #ccc;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            align-items: center;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            border-bottom: #77aaff 3px solid;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .header-flex h1 {
+            margin: 0;
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                background: #444;
+                width: 100%;
+                display: none;
+            }
+            nav ul.show-menu {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .header-flex {
+                flex-direction: row;
+            }
+        }
+        /* Blog post styles */
+        #blog-post {
+            padding: 20px 0;
+        }
+
+        #blog-post h2 {
+            font-size: 2.2em;
+            color: #333;
+        }
+
+        .blog-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        #share-section {
+            margin-top: 30px;
+        }
+
+        #share-section h3 {
+            font-size: 1.2em;
+        }
+
+        #share-section a {
+            margin-right: 10px;
+            color: #333;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        #share-section a:hover {
+            color: #77aaff;
+        }
+
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation a {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .navigation a:hover {
+            background-color: #555;
+        }
+
+    </style>
+    <script>
+        function toggleMenu() {
+            document.querySelector("nav ul").classList.toggle("show-menu");
+        }
+    </script>
 </head>
+
+
 <body>
-<header>
-    <div class="container header-container">
-        <div class="header-left">
+    <header>
+        <div class="container header-flex">
             <h1>Reflections on Kafka's Metamorphosis</h1>
-        </div>
-        <div class="header-right">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
             <nav>
                 <ul>
                     <li><a href="../index.html">Home</a></li>
@@ -24,8 +210,7 @@
                 </ul>
             </nav>
         </div>
-    </div>
-</header>
+    </header>
 
 <section id="blog-post">
     <div class="container">
