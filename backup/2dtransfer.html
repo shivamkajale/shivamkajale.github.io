@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Description of how to build a 2D material transfer microscope in your research lab, at low costs...">
+    <meta name="description" content="Description of how to build a 2D material transfer microscope in your research lab, at low costs. The 2D materials transfer setup here is housed in a glovebox for handling air-sensitive 2D van der Waals materials. It comes with motorized stages and a heated sample chuck. Useful for a variety of vdW materials based experiments in nanoelectronics, spintronics, superconductivity, condensed matter physics">
     <meta name="keywords" content="2D material transfer, vdW, van der Waals, 2D materials, automation, condensed matter physics, magnetism, superconductivity, MIT, nanoelectronics">
     <title>2D Material Transfer Station - Shivam Kajale</title>
     <link rel="stylesheet" href="styles.css">
@@ -11,8 +11,7 @@
     <link rel="canonical" href="https://shivamkajale.github.io/2dtransfer.html">
     <style>
         .container {
-            width: 90%;
-            max-width: 1000px;
+            width: 60%;
             margin: 0 auto;
             padding: 20px;
             text-align: justify;
@@ -22,6 +21,31 @@
             margin: 20px auto;
             border-radius: 8px;
         }
+        /* Flexbox styling for side-by-side video layout */
+        .video-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: 2%;
+            margin: 10px 0;
+        }
+        /* Style for each video block */
+        .video-block {
+            width: 50%;
+/*            height: 100%;*/
+            text-align: center;
+            position: relative; /* For positioning the thumbnail and video */
+        }
+        .video-block img.thumbnail {
+            width: 100%;
+            height: 350px;
+            cursor: pointer; /* Pointer to show that the thumbnail is clickable */
+        }
+        .video-block iframe {
+            display: none; /* Initially hide the video */
+            width: 100%;
+            height: 350px;
+        }
+        /* Captions for videos and images */
         .caption {
             background-color: #f4f4f4;
             border: 1px solid #ddd;
@@ -32,67 +56,19 @@
             border-radius: 4px;
             text-align: center;
         }
-        .video-wrapper {
-            display: flex;
-            justify-content: space-between;
-            gap: 2%;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-        .video-block {
-            width: 49%;
-            text-align: center;
-            position: relative;
-        }
-        .video-block iframe {
-            width: 100%;
-            height: 350px;
-        }
-        .video-block img.thumbnail {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(0%, 35%);
-            z-index: 2;
-            cursor: pointer;
-            object-fit: cover;
-        }
-        @media (max-width: 768px) {
-            .video-wrapper {
-                flex-direction: column;
-            }
-            .video-block {
-                width: 100%;
-            }
-            .header-flex h1 {
-                font-size: 20px;
-                line-height: 1.2;
-                word-break: break-word;
-                max-width: 100%;
-            }
-            img, iframe {
-                width: 100% !important;
-                height: auto;
-            }
-            .video-block img.thumbnail {
-                height: auto;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-        }
+        /* Social media icons */
         #social-media-icons {
             text-align: center;
             padding: 20px 0;
         }
+
         #social-media-icons a {
             margin: 0 10px;
             color: #888;
             font-size: 24px;
             text-decoration: none;
         }
+
         #social-media-icons a:hover {
             color: #eee;
         }
@@ -103,85 +79,12 @@
             text-align: center;
             margin-top: 40px;
         }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            align-items: center;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            border-bottom: #77aaff 3px solid;
-        }
-        .header-flex {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-        }
-        .header-flex h1 {
-            margin: 0;
-            word-break: break-word;
-            line-height: 1.2;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                background: #444;
-                width: 100%;
-                display: none;
-            }
-            nav ul.show-menu {
-                display: flex;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .header-flex {
-                flex-direction: row;
-            }
-        }
     </style>
-    <script>
-        function toggleMenu() {
-            document.querySelector("nav ul").classList.toggle("show-menu");
-        }
-        function playVideo(videoId, thumbnail) {
-            var video = document.getElementById(videoId);
-            thumbnail.style.display = "none";
-            video.style.display = "block";
-        }
-    </script>
 </head>
-
-
 <body>
     <header>
-        <div class="container header-flex">
+        <div class="container">
             <h1>2D Material Transfer Station</h1>
-            <button class="menu-toggle" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -204,13 +107,13 @@
             <div class="video-wrapper">
                 <!-- Video 1 Block with Thumbnail -->
                 <div class="video-block">
-                    <!-- <img src="pics/2dts_illustration_thumbnail.png" alt="Thumbnail for Video 1" class="thumbnail" onclick="playVideo('video1', this)"> -->
+                    <img src="pics/2dts_illustration_thumbnail.png" alt="Thumbnail for Video 1" class="thumbnail" onclick="playVideo('video1', this)">
                     <iframe id="video1" src="https://drive.google.com/file/d/1RiiKMhoL5ixWWMjHkFA8w7M8PD98SStc/preview" allow="autoplay"></iframe>
                     <p class="caption">Animated illustration of the 2D material transfer process</p>
                 </div>
                 <!-- Video 2 Block with Thumbnail -->
                 <div class="video-block">
-                    <!-- <img src="pics/2dts_demo_thumbnail.png" alt="Thumbnail for Video 2" class="thumbnail" onclick="playVideo('video2', this)"> -->
+                    <img src="pics/2dts_demo_thumbnail.png" alt="Thumbnail for Video 2" class="thumbnail" onclick="playVideo('video2', this)">
                     <iframe id="video2" src="https://drive.google.com/file/d/13cJnxJy_cCDtSaJI1Uyf_f39Sa6gbaR3/preview" allow="autoplay"></iframe>
                     <p class="caption">Representative video of the 2D transfer process. Here, a vdW material flake from PDMS stamp is being transferred to pre-patterned Ti/Au electrodes.</p>
                 </div>

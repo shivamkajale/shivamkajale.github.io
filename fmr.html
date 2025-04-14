@@ -1,119 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferromagnetic Resonance - Shivam Kajale</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        .container {
-            width: 60%;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: justify; /* Center the text */
-
-        }
-        img {
-            display: block;
-            margin: 20px auto;
-            border-radius: 8px;
-        }
-        .caption {
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            padding: 10px;
-            max-width: 100%;
-            margin: -10px auto 20px auto;
-            font-size: 14px;
-            color: #555;
-            border-radius: 4px;
-            text-align: center;
-        }
-        /* Social media icons */
-        #social-media-icons {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        #social-media-icons a {
-            margin: 0 10px;
-            color: #888;
-            font-size: 24px;
-            text-decoration: none;
-        }
-
-        #social-media-icons a:hover {
-            color: #eee;
-        }
-        footer {
-            background-color: #333;
-            color: #ccc;
-            padding: 10px 0;
-            text-align: center;
-            margin-top: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferromagnetic Resonance - Shivam Kajale</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: justify;
+    }
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      img {
+        width: 100% !important;
+        height: auto;
+      }
+    }
+    .caption {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      max-width: 100%;
+      margin: -10px auto 20px auto;
+      font-size: 14px;
+      color: #555;
+      border-radius: 4px;
+      text-align: center;
+    }
+    #social-media-icons {
+      text-align: center;
+      padding: 20px 0;
+    }
+    #social-media-icons a {
+      margin: 0 10px;
+      color: #888;
+      font-size: 24px;
+      text-decoration: none;
+    }
+    #social-media-icons a:hover {
+      color: #eee;
+    }
+    footer {
+      background-color: #333;
+      color: #ccc;
+      padding: 10px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+      align-items: center;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 0;
+      border-bottom: #77aaff 3px solid;
+    }
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .header-flex h1 {
+      margin: 0;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: #444;
+        width: 100%;
+        display: none;
+      }
+      nav ul.show-menu {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .header-flex {
+        flex-direction: row;
+      }
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("show-menu");
+    }
+  </script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Ferromagnetic Resonance (FMR)</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <div class="container header-flex">
+      <h1>Ferromagnetic Resonance (FMR)</h1>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <section>
-        <div class="container">
-            <h2>Overview</h2>
-            <p>
-                Ferromagnetic Resonance (FMR) is a powerful technique for studying the dynamic magnetic properties of materials. By applying a microwave field, FMR excites the precession of magnetization in a material, allowing the extraction of key magnetic parameters such as the saturation magnetization and damping constant. It is widely used for investigating thin films and nanostructures in spintronics research.
-            </p>
-            <img src="pics/fmr_schematic.png" alt="FMR Setup" width=60%>
-            <p class="caption">Schematic illustration of the ferromagnetic resonance technique. A coplanar waveguide transmits microwaves, inducing an oscillating magnetic field (<em>H<sub>rf</sub></em>) that excites the magnetization (<em>m</em>) of the sample. An external magnetic field (<em>H<sub>ext</sub></em>) is applied in the sample plane (often parallel to the waveguide), and the microwave absorption is measured as a function of <em>H<sub>ext</sub></em> and microwave frequency.</p>
-            <br><br>
+  <section>
+    <div class="container">
+      <h2>Overview</h2>
+      <p>Ferromagnetic Resonance (FMR) is a powerful technique for studying the dynamic magnetic properties of materials. By applying a microwave field, FMR excites the precession of magnetization in a material, allowing the extraction of key magnetic parameters such as the saturation magnetization and damping constant. It is widely used for investigating thin films and nanostructures in spintronics research.</p>
+      <img src="pics/fmr_schematic.png" alt="FMR Setup" width="60%">
+      <p class="caption">Schematic illustration of the ferromagnetic resonance technique. A coplanar waveguide transmits microwaves, inducing an oscillating magnetic field (<em>H<sub>rf</sub></em>) that excites the magnetization (<em>m</em>) of the sample. An external magnetic field (<em>H<sub>ext</sub></em>) is applied in the sample plane (often parallel to the waveguide), and the microwave absorption is measured as a function of <em>H<sub>ext</sub></em> and microwave frequency.</p>
+      <h2>Technical Details</h2>
+      <ul>
+        <li>Dipolar electromagnet for DC magnetic fields up to 1 T</li>
+        <li>Microwave synthesizer for RF frequencies up to 20 GHz</li>
+        <li>AM modulation of RF signal and a.c. modulation of external magnetic field</li>
+        <li>Double lock-in detection for improved signal-to-noise ratio</li>
+        <li>LabVIEW interface for data acquisition</li>
+      </ul>
+      <img src="pics/fmr_setup.png" alt="FMR Setup" width="100%">
+      <p class="caption">Pictures of the FMR setup, where the sample (~ 5 mm x 5 mm) is loaded on the coplanar waveguide.</p>
+      <h2>Some Results</h2>
+      <p>The FMR setup has been successfully used to extract key parameters such as the magnetization (𝑀<sub>S</sub>) and Gilbert damping coefficient (𝛼) for a range of materials. Shown below is the example of data acquired for a sputtered permalloy thin-film.</p>
+      <img src="pics/fmr_permalloy.png" alt="FMR Spectra" width="70%">
+      <p class="caption"><b>Top</b>: Resonance spectra of a permalloy (NiFe) sputtered thin-film, 6 nm in thickness capped with 1.2 nm of AlO<sub>x</sub>. <b>Bottom</b>: Data fitting for extracting the saturation magnetization and Gilber damping coefficient (&alpha;) of the permalloy thin-film.</p>
+      </div>
+  </section>
 
-            <h2>Technical Details</h2>
-            <ul>
-                <li>Dipolar electromagnet for DC magnetic fields up to 1 T</li>
-                <li>Microwave synthesizer for RF frequencies up to 20 GHz</li>
-                <li>AM modulation of RF signal and a.c. modulation of external magnetic field</li>
-                <li>Double lock-in detection for improved signal-to-noise ratio</li>
-                <li>LabVIEW interface for data acquisition</li>
-            </ul>
-            <img src="pics/fmr_setup.png" alt="FMR Setup" width=100%>
-            <p class="caption">Pictures of the FMR setup, where the sample (~ 5 mm x 5 mm) is loaded on the coplanar waveguide.</p>
-            <br><br>
-
-            <h2>Some Results</h2>
-            <p>
-                The FMR setup has been successfully used to extract key parameters such as the magnetization (𝑀<sub>S</sub>) and Gilbert damping coefficient (𝛼) for a range of materials. Shown below is the example of data acquired for a sputtered permalloy thin-film.
-            </p>
-            <img src="pics/fmr_permalloy.png" alt="FMR Spectra" width=70%>
-            <p class="caption"><b>Top</b>: Resonance spectra of a permalloy (NiFe) sputtered thin-film, 6 nm in thickness capped with 1.2 nm of AlO<sub>x</sub>. <br> 
-            <b>Bottom</b>: Data fitting for extracting the saturation magnetization and Gilber damping coefficient (&alpha;) of the permalloy thin-film.</p>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-                <h2>Contact</h2>
-                <p>   Email: skajale[at]mit[dot]edu</p>
-                <p>   Alternate Email: shivamkajale0[at]gmail[dot]com</p>
-                <div id="social-media-icons">
-                    <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
-                    <!-- Add the new email icon -->
-                    <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
-            <p><center>&copy; 2024 Shivam Kajale. All rights reserved.</center> </p>
-        </div>
-    </footer>
+  <footer id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>Email: skajale[at]mit[dot]edu</p>
+      <p>Alternate Email: shivamkajale0[at]gmail[dot]com</p>
+      <div id="social-media-icons">
+        <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+        <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>&copy; 2024 Shivam Kajale. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>

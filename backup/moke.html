@@ -1,146 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferromagnetic Resonance - Shivam Kajale</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: justify;
-    }
-    img {
-      display: block;
-      margin: 20px auto;
-      border-radius: 8px;
-    }
-    @media (max-width: 768px) {
-      img {
-        width: 100% !important;
-        height: auto;
-      }
-      .header-flex h1 {
-        font-size: 20px;
-        line-height: 1.2;
-        word-break: break-word;
-        max-width: 75%;
-      }
-    }
-    .caption {
-      background-color: #f4f4f4;
-      border: 1px solid #ddd;
-      padding: 10px;
-      max-width: 100%;
-      margin: -10px auto 20px auto;
-      font-size: 14px;
-      color: #555;
-      border-radius: 4px;
-      text-align: center;
-    }
-    #social-media-icons {
-      text-align: center;
-      padding: 20px 0;
-    }
-    #social-media-icons a {
-      margin: 0 10px;
-      color: #888;
-      font-size: 24px;
-      text-decoration: none;
-    }
-    #social-media-icons a:hover {
-      color: #eee;
-    }
-    footer {
-      background-color: #333;
-      color: #ccc;
-      padding: 10px 0;
-      text-align: center;
-      margin-top: 40px;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: flex-end;
-      gap: 20px;
-      align-items: center;
-    }
-    nav ul li {
-      display: inline;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      border-bottom: #77aaff 3px solid;
-    }
-    .header-flex {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-    }
-    .header-flex h1 {
-      margin: 0;
-    }
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        background: #444;
-        width: 100%;
-        display: none;
-      }
-      nav ul.show-menu {
-        display: flex;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      .header-flex {
-        flex-direction: row;
-      }
-    }
-  </style>
-  <script>
-    function toggleMenu() {
-      document.querySelector("nav ul").classList.toggle("show-menu");
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magneto-optical Kerr Effect - Shivam Kajale</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Inline CSS -->
+    <style>
+        /* Center the content and limit the width */
+        .container {
+            width: 60%;  /* Limit the width to 50% */
+            margin: 0 auto;  /* Center the container */
+            padding: 20px;  /* Add padding around the content */
+            text-align: justify; /* Center the text */
+        }
+
+        /* Styling for images and captions */
+        img {
+            display: block;  /* Ensure the images are centered */
+            margin: 20px auto;  /* Center the images with margin */
+            border-radius: 8px;  /* Optional: Add slight rounding for a modern look */
+        }
+
+        .caption {
+            background-color: #f4f4f4;  /* Light background for caption box */
+            border: 1px solid #ddd;  /* Light border around caption */
+            padding: 10px;  /* Padding inside caption */
+            max-width: 90%;  /* Make sure the caption matches the image width */
+            margin: -10px auto 20px auto;  /* Adjust margin so it sticks with the image */
+            font-size: 14px;
+            color: #555;  /* Slightly darker color for captions */
+            border-radius: 4px;  /* Rounded corners for the caption box */
+            text-align: center;  /* Center align the caption text */
+        }
+
+        }
+        /* Social media icons */
+        #social-media-icons {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        #social-media-icons a {
+            margin: 0 10px;
+            color: #888;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        #social-media-icons a:hover {
+            color: #eee;
+        }
+        footer {
+            background-color: #333;
+            color: #ccc;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container header-flex">
-      <h1>Magneto-optical Kerr Effect (MOKE)</h1>
-      <button class="menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
+    <header>
+        <div class="container">
+            <h1>Magneto-optical Kerr Effect (MOKE)</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <!-- <li><a href="technical_developments.html">Technical Developments</a></li> -->
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <section>
         <div class="container">
@@ -158,7 +92,7 @@
             </p>
             <p>
             In the context of 2D vdW magnets, MOKE has played an instrumental role in uncovering new magnetic phenomena. Recent studies have demonstrated its utility in investigating magnetic order in monolayer and few-layer vdW systems, such as CrI₃, Cr₂Ge₂Te₆, and Fe₃GeTe₂, where conventional magnetometers face limitations. This has made MOKE a vital tool for probing phase transitions, hysteresis, and other magnetic characteristics, furthering our understanding of low-dimensional magnetism and its potential applications in spintronic devices.
-            </p>
+            </p><br><br>
             <h2>Technical Specifications</h2>
             <ul>
                 <li>50 mW HeNe, 632.8 nm laser (CrystaLaser)</li>
@@ -171,6 +105,7 @@
             </ul>
             <img src="pics/moke_setup.jpg" alt="MOKE Setup" width=80%>
             <p class="caption">Assembled MOKE setup</p>
+            <br><br>
             <h2>Some Results</h2>
             <p>
                 The microscope has successfully been used to probe magnetization in few micrometer wide vdW magnetic materials at room temperature. Below is an example of a Polar MOKE measurement performed on exfoliated Fe<sub>3</sub>GaTe<sub>2</sub>, which was published in <a href="https://www.nature.com/articles/s41467-024-45586-4" target="_blank">Nat Comm 15, 1485 (2024)</a>.

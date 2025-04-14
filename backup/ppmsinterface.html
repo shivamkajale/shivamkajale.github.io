@@ -11,41 +11,16 @@
     <link rel="canonical" href="https://shivamkajale.github.io/ppmsinterface.html">
     <style>
         .container {
-            width: 90%;
-            max-width: 1000px;
+            width: 60%;
             margin: 0 auto;
             padding: 20px;
-            text-align: justify;
+            text-align: justify; /* Center the text */
+
         }
         img {
             display: block;
             margin: 20px auto;
             border-radius: 8px;
-        }
-        @media (max-width: 768px) {
-            img {
-                width: 100% !important;
-                height: auto;
-            }
-            .header-flex h1 {
-                font-size: 20px;
-                line-height: 1.2;
-                word-break: break-word;
-                max-width: 75%;
-            }
-        }
-        h2 {
-            display: block;
-          word-break: break-word;
-          line-height: 1.3;
-          white-space: normal;
-          overflow-wrap: break-word;
-          hyphens: auto;
-          font-size: 1.5rem;
-          font-weight: bold;
-          margin-top: 1.5em;
-          margin-bottom: 0.5em;
-          text-align: left;
         }
         .caption {
             background-color: #f4f4f4;
@@ -58,16 +33,19 @@
             border-radius: 4px;
             text-align: center;
         }
+        /* Social media icons */
         #social-media-icons {
             text-align: center;
             padding: 20px 0;
         }
+
         #social-media-icons a {
             margin: 0 10px;
             color: #888;
             font-size: 24px;
             text-decoration: none;
         }
+
         #social-media-icons a:hover {
             color: #eee;
         }
@@ -78,78 +56,12 @@
             text-align: center;
             margin-top: 40px;
         }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            align-items: center;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            border-bottom: #77aaff 3px solid;
-        }
-        .header-flex {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-        }
-        .header-flex h1 {
-            margin: 0;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                background: #444;
-                width: 100%;
-                display: none;
-            }
-            nav ul.show-menu {
-                display: flex;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .header-flex {
-                flex-direction: row;
-            }
-        }
     </style>
-    <script>
-        function toggleMenu() {
-            document.querySelector("nav ul").classList.toggle("show-menu");
-        }
-    </script>
 </head>
-
-
 <body>
     <header>
-        <div class="container header-flex">
+        <div class="container">
             <h1>PPMS Instrumentation and Automation</h1>
-            <button class="menu-toggle" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -170,6 +82,7 @@
             </p>
             <img src="pics/ppms_setup.png" alt="PPMS Instrumentation" width=100%>
             <p class="caption">Picture of the PPMS cabin at NCB lab. A close-up view of the external electronics is shown on the right.</p>
+            <br><br>
 
             <h2>LabVIEW-based PPMS Interface</h2>
             <ul>
@@ -185,6 +98,7 @@
             </p>
             <img src="pics/ppms_interface.png" alt="PPMS Automation" width=100%>
             <p class="caption"><b>Left</b>: LabVIEW program developed for controlling the cryostat (temperature, magnetic field, sample rotation) and external electronics to run prolonged measurements.
+                <br>
                 <b>Right</b>: Example of a measurement sequence script, including loops (SCAN), that can be used for running long measurements without the need for continuous monitoring.</p>
         </div>
     </section>
