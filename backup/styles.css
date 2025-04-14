@@ -10,182 +10,66 @@ body {
 .container {
     width: 80%;
     margin: auto;
-    overflow: visible;
-    position: relative;
-}
-
-section {
-    padding: 20px 0;
-    text-align: left;
-    border-bottom: 2px solid #77aaff;
-}
-
-section:nth-of-type(even) {
-    background-color: #e0e0e0;
-}
-
-section:nth-of-type(odd) {
-    background-color: #d3d3d3;
+    overflow: visible; /* Ensure no clipping occurs */
 }
 
 /* Header styles */
 header {
     background: #333;
     color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
     border-bottom: #77aaff 3px solid;
-    position: relative;
-}
-
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
 }
 
 header h1 {
+    float: left;
     font-size: 30px;
-    margin: 0;
+    margin-top: 0;
 }
 
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 1001;
+header nav {
+    float: right;
+    margin-top: 10px;
 }
 
-nav ul {
+header nav ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
+    position: relative; /* Ensure dropdowns align correctly */
+    overflow: visible; /* Force visibility for dropdowns */
 }
 
-nav ul li {
+header nav ul li {
+    display: inline;
     margin-left: 25px;
-    position: relative;
 }
 
-nav ul li a {
-    color: white;
+header nav ul li a {
+    color: #fff;
     text-decoration: none;
     font-size: 16px;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    width: 100%;
-    max-width: 300px;
-    border: 1px solid #ddd;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 0;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
+/* Section styles */
+section {
+    padding: 20px 0;
+    border-bottom: #77aaff 1px solid;
+    text-align: left;
 }
 
-.dropdown:hover .dropdown-content,
-.dropdown.open .dropdown-content {
-    display: block;
+section:nth-of-type(even) {
+    background: #d3d3d3;
 }
 
-.dropdown-content li {
-    list-style-type: none;
+section:nth-of-type(odd) {
+    background: #e0e0e0;
 }
 
-.dropdown-content li a {
-    color: black;
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    white-space: normal;
-}
-
-.dropdown-content li a:hover {
-    background-color: #ddd;
-}
-
-.dropdown > a {
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-
-    nav ul {
-        display: none;
-        flex-direction: column;
-        background: #333;
-        width: 100%;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        padding: 10px 0;
-        z-index: 1000;
-    }
-
-    nav ul.show-menu {
-        display: flex;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-        text-align: center;
-    }
-
-    .dropdown-content {
-        position: static;
-        background: #444;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .dropdown-content li a {
-        color: white;
-        white-space: normal;
-    }
-
-    .dropdown.open .dropdown-content {
-        display: block;
-    }
-
-    .news-section, .about-section {
-        flex-direction: column;
-    }
-
-    .carousel-container, .video-container, .news-updates {
-        width: 100% !important;
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .carousel-container {
-        float: none;
-    }
-
-    .bio {
-        width: 100%;
-        margin: 0;
-    }
-
-    .video-container {
-        padding-bottom: 56.25% !important;
-    }
+section h2 {
+    color: #333;
+    margin-top: 0;
 }
 
 /* About section styles */
@@ -198,29 +82,13 @@ nav ul li a {
     margin-top: 0;
 }
 
+/* Carousel styles */
 .carousel-container {
     float: right;
     width: 45%;
     overflow: hidden;
     background: #000000;
     margin: 10px 0 30px 30px;
-}
-
-.video-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    background: #000;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .carousel-slide {
@@ -263,11 +131,7 @@ nav ul li a {
     z-index: 10;
 }
 
-/* Rest of styles remain unchanged */
-
-
-/* Rest of styles remain unchanged */
-
+/* Video container styles */
 .video-container {
     position: relative;
     width: 40%;
@@ -285,11 +149,11 @@ nav ul li a {
     height: 100%;
 }
 
+/* News and Updates section styles */
 .news-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: wrap;
 }
 
 .news-updates {
@@ -306,6 +170,7 @@ nav ul li a {
     margin-bottom: 14px;
 }
 
+/* Contact form styles */
 #contact-form {
     display: flex;
     flex-direction: column;
@@ -344,6 +209,7 @@ nav ul li a {
     background-color: #555;
 }
 
+/* Publications section styles */
 #publications-list {
     list-style-type: none;
     padding: 0;
@@ -356,6 +222,7 @@ nav ul li a {
     margin-left: -20px;
 }
 
+/* Social media icons */
 #social-media-icons {
     text-align: center;
     padding: 20px 0;
@@ -372,6 +239,13 @@ nav ul li a {
     color: #555;
 }
 
+/* Dropdown menu styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 25px;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -382,6 +256,8 @@ nav ul li a {
     z-index: 1000;
     padding: 0;
     white-space: nowrap;
+    max-height: none; /* Add height limit */
+    overflow-y: visible;  /* Add scroll if content exceeds height */
 }
 
 .dropdown-content li {
@@ -399,10 +275,12 @@ nav ul li a {
     background-color: #ddd;
 }
 
+/* Show dropdown when clicked */
 .dropdown.open .dropdown-content {
     display: block;
 }
 
+/* Handle dropdown button click */
 .dropdown > a {
     cursor: pointer;
 }

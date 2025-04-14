@@ -1,44 +1,27 @@
-<!-- Responsive updates for Shivam Kajale's personal website -->
-<!-- This HTML includes the structure from your original file -->
-<!-- Modified CSS to follow for responsive behavior -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website of Shivam Nitin Kajale. Shivam is a PhD student at Massachusetts Institute of Technology. His research interests include spintronics, superconductivity, 2D materials and neuromorphic computing. This website also contains descriptions of the various research tools he has developed and hosts his blog posts.">
+    <meta name="description" content="Perosnal website of Shivam Nitin Kajale. Shivam is a PhD student at Massachusetts Institute of Technology. His research interests include spintronics, superconductivity, 2D materials and neuromorphic computing. This website also contains descriptions of the various research tools he has developed and hosts his blog posts.">
     <meta name="keywords" content="Shivam Kajale, MIT, spintronics, superconductivity, 2D magnetism, neuromorphic, PhD">
     <title>Shivam Kajale, Personal Webpage</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="canonical" href="https://shivamkajale.github.io/">
-    <script>
-    // Responsive menu toggle
-    function toggleMenu() {
-        document.querySelector("nav ul").classList.toggle("show-menu");
-    }
-    // Dropdown toggle for Tools Development
-    function toggleDropdown(event) {
-        event.preventDefault();
-        event.target.parentElement.classList.toggle("open");
-    }
-    </script>
 </head>
 <body>
     <header>
         <div class="container header-container">
             <h1>Shivam Kajale</h1>
-            <button class="menu-toggle" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#news">News and Updates</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li class="dropdown">
-                        <a href="#" onclick="toggleDropdown(event)">Tools Development</a>
+                        <a href="javascript:void(0)">Tools Development</a> <!-- Main Instrumentation link -->
                         <ul class="dropdown-content">
                             <li><a href="2dtransfer.html">2D Material Transfer Microscope</a></li>
                             <li><a href="moke.html">Magneto-optical Kerr effect</a></li>
@@ -47,7 +30,8 @@
                         </ul>
                     </li>
                     <li><a href="blogs/blogs.html">Blogs</a></li>
-                    <li><a href="files/Shivam_CV_Feb2025.pdf" target="_blank">Download CV</a></li>
+                    <!-- <li><a href="gallery.html">Gallery</a></li> -->
+                    <li><a href="files/Shivam_CV_Feb2025.pdf" target="_blank">Download CV</a></li> <!-- New CV link -->
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
