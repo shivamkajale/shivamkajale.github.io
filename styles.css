@@ -153,6 +153,14 @@ nav ul li a {
     cursor: pointer;
 }
 
+.quote-wrapper blockquote {
+      font-style: italic;
+      color: #555;
+      border-left: 3px solid #77aaff;
+      padding-left: 15px;
+      margin: 20px auto;
+}
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -160,7 +168,10 @@ nav ul li a {
         top: 20px;
         right: 20px;
     }
-
+    .quote-wrapper blockquote {
+        border-left: none;
+        padding-left: 0;
+    }
     nav ul {
         display: none;
         flex-direction: column;
