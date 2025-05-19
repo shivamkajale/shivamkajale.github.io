@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    MathJax = {
+        loader: {load: ['[tex]/physics']},
+        tex: {
+            tags: 'all',  // Enables numbering for all display equations
+            packages: {'[+]': ['physics']}
+        }
+    };
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed notes for FPGA implementation of a pseudo-random number generator, Mersenne Twister">
+    <meta name="keywords" content="FPGA, xilinx, mersenne twister, MT19937">
+    <title>RNG using an a FPGA</title>
+    <link rel="canonical" href="https://shivamkajale.github.io/blogs/tight_binding.html">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="stylesheet" href="prism.css">
+	<script src="prism.js"></script>
+
+    <style>
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: justify;
+        }
+        p, ol, ul, li  {
+            font-size: 1rem;  /* or 16px, or whatever your base size is */
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            img {
+                width: 100% !important;
+                height: auto;
+            }
+            .header-flex h1 {
+                font-size: 20px;
+                line-height: 1.2;
+                word-break: break-word;
+                max-width: 75%;
+            }
+        }
+        h2 {
+            display: block;
+          word-break: break-word;
+          line-height: 1.3;
+          white-space: normal;
+          overflow-wrap: break-word;
+          hyphens: auto;
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-top: 1.5em;
+          margin-bottom: 0.5em;
+          text-align: left;
+        }
+        .caption {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-width: 100%;
+            margin: -10px auto 20px auto;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #social-media-icons {
+            text-align: center;
+            padding: 20px 0;
+        }
+        #social-media-icons a {
+            margin: 0 10px;
+            color: #888;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        #social-media-icons a:hover {
+            color: #eee;
+        }
+        footer {
+            background-color: #333;
+            color: #ccc;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            align-items: center;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            border-bottom: #77aaff 3px solid;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .header-flex h1 {
+            margin: 0;
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                background: #444;
+                width: 100%;
+                display: none;
+            }
+            nav ul.show-menu {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .header-flex {
+                flex-direction: row;
+            }
+        }
+        /* Blog post styles */
+        #blog-post {
+            padding: 20px 0;
+        }
+
+        #blog-post h2 {
+            font-size: 2.2em;
+            color: #333;
+        }
+
+        .blog-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        #share-section {
+            margin-top: 30px;
+        }
+
+        #share-section h3 {
+            font-size: 1.2em;
+        }
+
+        #share-section a {
+            margin-right: 10px;
+            color: #333;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        #share-section a:hover {
+            color: #77aaff;
+        }
+
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation a {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .navigation a:hover {
+            background-color: #555;
+        }
+        mark { 
+		  background-color: #ccc;
+		  color: #000;
+		  font-family: "Lucida Console", "Courier New", monospace;
+		}
+
+    </style>
+    <script>
+        function toggleMenu() {
+            document.querySelector("nav ul").classList.toggle("show-menu");
+        }
+    </script>
+    <script>
+        function loadCodeFromFile(filename, elementId, languageClass) {
+          fetch('./mt/' + filename)
+            .then(response => {
+              if (!response.ok) throw new Error("File not found");
+              return response.text();
+            })
+            .then(data => {
+              const el = document.getElementById(elementId);
+              el.textContent = data;
+              el.className = 'language-' + languageClass;
+              Prism.highlightElement(el);
+            })
+            .catch(error => {
+              document.getElementById(elementId).textContent = '// Error loading file: ' + filename;
+            });
+        }
+    </script>
+
+</head>
+<body>
+<header>
+    <div class="container header-flex">
+            <h1>Implementing a PRNG (MT19937) on a Xilinx FPGA</h1>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<section id="blog-post">
+    <div class="container">
+        <p><i>Published on May 18, 2025</i></p>
+        <!-- <p><i>I am learning to use an FPGA, and I update these notes as I make progress.</i></p> -->
+        <div class="blog-image">
+            <img src="./mt/MT_FPGA.gif" alt="Streaming random number" style="width:80%;">
+        </div>
+        <div class="blog-content">
+            <p>I still remember my third year of undergrad as an electrical engineering major — the time we first dipped our toes into digital circuit design using hardware description languages. The HDLs themselves weren’t too bad once you got the hang of them, but getting those circuits to actually run on an FPGA? That was straight-up chaos. We were using Altera FPGAs with the Quartus IDE on Linux machines, and just getting the software and drivers to play nice felt like solving a puzzle designed by someone who hates you. Somehow, we stumbled our way through that course, and I was more than happy to leave FPGAs behind as I dove into semiconductor device research for my PhD at MIT. But as fate would have it (plot twist!), I recently found myself circling back into the FPGA vortex for a new project. All I had were distant, mildly traumatic memories of the ordeal — no actual memory of <i>how</i> to make anything work.</p><p>
+            So here we are again. I had to relearn everything from scratch, piecing it together step by step and hoping I’m not just reinventing a more chaotic wheel. This blog is my way of documenting those steps — implementing a fairly simple digital design on an FPGA — so Future Me (and maybe Present You, curious reader) can skip the unnecessary suffering next time around. Oh, and by the way: the Mersenne Twister (MT) pseudo-random number generator is just the guinea pig for this project. If you're here for a deep dive into PRNG metrics, this probably isn’t your ride. But if you're looking to get a basic design up and running on an FPGA without losing your mind — welcome aboard.</p><p>
+            I’ll start with a quick primer on the Mersenne Twister — just enough to give you a feel for how the FSM ticks, so the Verilog code that follows actually makes some sense. Once that’s out of the way, we’ll dive into the simulation workflow: from basic behavioral simulation to the post-implementation stage. After that, I’ll walk through how to get solid, high-confidence energy estimates using Vivado’s Power Report tool, with the help of a SAIF (Switching Activity Interchange Format) file. At this point, the FPGA will be happily generating MT19937 pseudo-random numbers internally. But unless you’re planning to sit and stare at LED blinks for entropy, we’ll need to slap on a UART transmitter to stream the numbers to a PC for verification. With that UART wrapper in place, we’ll be all set to flash the code and watch a stream of Mersenne magic roll out of the FPGA.</p>
+
+        <h3>A Quick Tour of the MT19937</h3>
+        <p>The Mersenne Twister is a widely-used pseudo-random number generator (PRNG) known for its long period and high-quality randomness. The "19937" part in MT19937 refers to the fact that its period is \( 2^{19937}−1 \), which is a very large prime number — specifically a Mersenne prime. That long period means it takes an absurdly long time to repeat itself, which is kind of the dream when you’re generating random numbers that shouldn’t look like they're coming from a hamster on a wheel.</p><p>
+        Here’s the high-level breakdown of how MT19937 works:</p>
+        <ol>
+            <li>Seeding: A 624-word internal state is initialized using a recurrence formula, starting from a single external seed.</li>
+            <li>Twisting: New state values are generated in chunks using XORs, shifts, and a conditional matrix multiply with a constant matrix_a.</li>
+            <li>Tempering: The raw output from the twist is passed through a series of XOR-and-shift operations to improve statistical quality.</li>
+        </ol>
+
+        <br>
+        <h3>The FSM</h3>
+        <br>
+        <div class="blog-image">
+            <img src="./mt/mt_fsm.svg" alt="MT FSM Schematic" style="width:80%;">
+        </div>
+        <p>To coordinate all this logic, I designed a finite state machine (FSM) that cycles through four states:</p>
+        <ul>
+        <li>S0 – IDLE: Waiting for the ext_seed_enable signal. This is the FPGA equivalent of twiddling thumbs.</li>
+        <li>S1 – SEED: Seeds the internal 624-entry state array using a recurrence. Outputs done_seed = 1 when finished.</li>
+        <li>S2 – TWIST: Executes the twisting transformation. At each cycle, it:
+        <ul>
+        <li>Grabs three words from the state array,</li>
+        <li>Computes a twisted value via masked bit operations and XORs,</li>
+        <li>Applies tempering to the result,</li>
+        <li>Produces a final random_number and raises valid_rn.</li></ul></li>
+        <li>S3 – TRANSIT: A guard band between SEED and TWIST to ensure memory operations complete cleanly.</li></ul>
+        <p>The transitions between states are driven by the done_seed and done_twist flags. Once initialized, the FSM loops between twisting and reseeding, generating new outputs on every cycle.</p>
+        
+        <h3>Module Breakdown: Who Does What</h3>
+        <p>Here’s how the Verilog modules are sliced up:</p>
+        <p><b>mt_fsm.v</b>: The central controller. It handles all state transitions and control signals for the rest of the design. Think of it as the stage manager cueing actors.</p>
+        <pre class="line-numbers"><code id="code-mt_fsm"></code></pre>
+        <script>
+          loadCodeFromFile('mt_fsm.v', 'code-mt_fsm', 'verilog');
+        </script>
+        <p><b>mt_seed.v</b>: Responsible for seeding the MT state array. It iterates through all 624 indices, calculating and writing new values using the initialization recurrence. When done, it asserts done_seed.</p>
+        <pre class="line-numbers"><code id="code-mt_seed"></code></pre>
+        <script>
+          loadCodeFromFile('mt_seed.v', 'code-mt_seed', 'verilog');
+        </script>
+        <p><b>mt_twist.v</b>: This one handles the magic. For each cycle:<ul>
+        <li>It calculates the new twisted value using neighboring entries of the state array.</li>
+        <li>Performs the tempering step using constants from the MT19937 spec:</li>
+        <li>Outputs a valid 32-bit pseudo-random number and writes the updated state back.</li></ul></p>
+        <pre class="line-numbers"><code id="code-mt_twist"></code></pre>
+        <script>
+          loadCodeFromFile('mt_twist.v', 'code-mt_twist', 'verilog');
+        </script>
+        <p><b>mt_state_mem.v</b>: A dual-ported memory array with 624 words of 32-bit state. Both the seed and twist modules read/write to it based on the FSM’s control.</p>
+        <pre class="line-numbers"><code id="code-mt_state_mem"></code></pre>
+        <script>
+          loadCodeFromFile('mt_state_mem.v', 'code-mt_state_mem', 'verilog');
+        </script>
+        <p>Together, these modules recreate the MT19937 algorithm step by step, entirely in hardware. It’s overkill if you just want to generate random numbers — but gold if you care about deterministic, cycle-accurate, energy-measurable randomness for hardware benchmarking (which I do).</p>
+
+        <h3>Running the Behavioral simulation</h3>
+        <p>As the name suggests, behavioral simulation is about verifying whether your digital design "behaves" as intended — before you go anywhere near actual hardware. For the Mersenne Twister implemented here, the goal of simulation is to check whether the FSM cycles correctly between seeding the state memory and performing the twist/temper operation, and whether the output <mark>random_number</mark> stream looks valid — ideally, uniform over the 32-bit range. What makes this process powerful is the waveform database: it logs how every signal in your design changes over time. This becomes an essential tool for debugging, letting you visually trace issues like stuck states, incorrect transitions, or invalid outputs — long before you flash anything onto an FPGA.</p>
+        
+        <p>To run a behavioral simulation, you need to write a testbench — a kind of wrapper module that mimics the real-world environment your design would operate in. The testbench doesn’t get synthesized or loaded onto the FPGA. Its only job is to stimulate your design with clock signals, resets, and inputs, and to observe outputs, just like a virtual lab setup.</p>
+
+		<p>In this project, the testbench file <b>tb_mt_fsm.v</b> instantiates the top-level module <b>mt_fsm</b>. It drives the <mark>clk</mark> and <mark>rst</mark> lines, provides an <mark>external_seed</mark> value, and toggles the <mark>external_seed_enable</mark> flag to kick off the FSM. It also captures the output signals <mark>random_number</mark> and <mark>valid_rn</mark>, and writes the random numbers to a text file so we can inspect them offline.</p>
+
+		<pre class="line-numbers"><code id="code-tb_mt_fsm"></code></pre>
+        <script>
+          loadCodeFromFile('tb_mt_fsm.v', 'code-tb_mt_fsm', 'verilog');
+        </script>
+
+		<p>At this stage, the project files hierarchy in Vivado should look something like the screenshot below - <b>mt_fsm.v</b> is the top-level "Design Source" and <b>tb_mt_fsm.v</b> is the top-level "Simulation Source". With that verified, we can simply go to <i>Simulation >> Run Simulation</i> in the <i>Project Manager</i> on Vivado and click <i>Run Behavioral Simulation</i> to trigger the simulation.</p>
+
+		<div class="blog-image">
+            <img src="./mt/hierarchy_simulations.png" alt="hierarchy_simulations" style="width:50%;">
+        </div>
+
+        <h3>Post-implementation simulation and Power Report generation</h3>
+
+        <p>By this point, the behavioral simulation has verified that the design works as expected. But before flashing it onto the FPGA, it’s wise to run a few more checks. We want to know whether the design will operate reliably at the target clock frequency, how much power it might consume, and whether it risks heating up during sustained operation. These questions are addressed through Vivado’s <i>Synthesis</i> and <i>Implementation</i> stages. Once <i>Implementation</i> completes, Vivado provides a <i>Utilization Report</i> that tells us how many FPGA resources — like LUTs, flip-flops, and DSPs — the design consumes. It also generates a <i>Timing Report</i>, where metrics like the Worst Negative Slack and Worst Hold Slack let us assess whether the design meets timing requirements.</p>
+		
+		<p>Vivado also provides a <i>Power Report</i> at this stage, but the numbers in that report are based on internal heuristics about signal switching activity. In other words, it makes educated guesses about how often each signal toggles per second. This can be misleading, especially for designs like a pseudo-random number generator, where some signals might switch very frequently while others rarely do. To improve accuracy, we can generate a SAIF file — a Switching Activity Interchange Format file — that records actual signal transitions during a <i>Post-Implementation Functional Simulation</i>. This simulation uses the same design and testbench as before, but with the added instruction for Vivado to track how many times each signal flips. Once the simulation runs long enough — say, until one million random numbers have been generated — we end up with a detailed and realistic estimate of each signal’s activity. Feeding this SAIF file back into Vivado lets the tool refine its <i>Power Report</i>, giving you a much more trustworthy estimate of your design’s real-world power consumption. To enable logging a SAIF file, we can use the <i>Simulation Settings</i>, and populate the required details as shown below.</p>
+
+		<div class="blog-image">
+            <img src="./mt/saif_settings.png" alt="saif_settings" style="width:50%;">
+        </div>
+
+        <p>Additionally, we  must specify a clock constraint to seed allow timing analysis during Implementation. This can be done by simply adding a constraints.xdc file to the project as a <i>Constraints</i> source, and the file just needs one line of code </p>
+
+        <pre class="line-numbers"><code>create_clock -name clk -period 30.000 [get_ports {clk}];</code></pre>
+
+        <p>Here, the period is specified in nanoseconds. With the SAIF related settings done and the <mark>clk</mark> constraint defined, we can now proceed to run the <i>Post-Implementation Functional Simulation</i>. Once the simulation is complete, the SAIF file can be fed to Vivado's <i>Power Report</i> dialog box and to generate a high-confidence estimate of our design's power consumption at the specified clock frequency.</p>
+
+        <div class="blog-image">
+            <img src="./mt/power_report.png" alt="power_report" style="width:100%;">
+        </div>
+
+        <h3>Preparing for FPGA deployment - Clocks, Comms and Constraints</h3>
+
+        <p>Having verified that the design behaves as expected and gathered useful reports on timing, resource utilization, and power consumption, the next step is to prepare the design for deployment onto the FPGA. At a basic level, this involves updating the constraints file to map the ports of the top-level Verilog module to the actual I/O pins of the FPGA — and by extension, to the development board’s peripherals like LEDs, switches, buttons, or UART interfaces. However, for this project, I made a few additional changes specific to the Genesys2 board to properly handle its differential clock input and ensure UART-based streaming of the random number output to a PC.</p>
+
+		<p>The Genesys2 board provides a differential clock source running at 200 MHz, whereas my Mersenne Twister design expects a single-ended clock input. To bridge this, I created a new top-level module, <b>mt_uart.v</b>, which first takes in the differential clock pair, comprising <mark>sysclk_p</mark> and <mark>sysclk_n</mark>, and converts it to a single-ended clock, <mark>clk</mark>, using an input buffer. This resulting clock signal, still at 200 MHz, is then downsampled to a lower frequency (<mark>seq_clk</mark>) suitable for driving the FSM. The downsampling is done using a simple counter-based divider, while the conversion from differential to single-ended clock uses the following Verilog snippet, which is standard for Xilinx-based boards:</p>
+		<pre class="line-numbers"><code>
+    // === Differential Clock Buffer ===
+    wire clk;
+    IBUFDS #(
+        .DIFF_TERM("TRUE"),
+        .IBUF_LOW_PWR("FALSE")
+    ) clk_ibuf (
+        .O(clk),
+        .I(sysclk_p),
+        .IB(sysclk_n)
+    );
+</code></pre>
+
+        <p>With the clocks configured, the digital design is in principle ready to happily generate 32-bit random numbers inside the FPGA — but we need a way to actually see those numbers on a computer. That’s where UART (Universal Asynchronous Receiver/Transmitter) comes in. UART is one of the simplest and most widely used serial communication protocols for talking to microcontrollers, FPGAs, or pretty much any embedded device. Physically, it uses just two wires - Rx and Tx. It's asynchronous, meaning there’s no clock line shared between sender and receiver — both ends just agree on a baud rate (bits per second) and stick to it. Each byte is sent as a packet that includes:</p>
+        <li>Start bit (usually 0)</li>
+        <li>8 data bits (least significant bit first)</li>
+		<li>Stop bit (usually 1)</li>
+		<p>That makes each byte a 10-bit packet on the wire.</p>
+		<p>To send the MT19937-generated numbers to the PC, I wrote a <b>uart_tx.v</b> module. It takes in 1 byte from a register and handles all the UART-level packing: adding the start and stop bits, and shifting the bits out serially on a tx line. It also has a busy flag so the controller knows when to wait before sending the next byte.</p>
+
+		<pre class="line-numbers"><code id="code-uart_tx"></code></pre>
+        <script>
+          loadCodeFromFile('uart_tx.v', 'code-uart_tx', 'verilog');
+        </script>
+
+		<p>Then comes the new top-level module, <b>mt_uart.v</b>. This one connects the dots:</p>
+
+		<li>It instantiates the mt_fsm to generate 32-bit random numbers.</li>
+		<li>It creates a 100 Hz clock which can drive the mt_fsm, so that a new random number is generated every 10 ms.</li>
+		<li>It slices those 32 bits into four 8-bit chunks.</li>
+		<li>It sends those chunks out one-by-one through uart_tx, waiting for the busy signal to clear before loading the next byte.</li>
+		<li>The least significant byte of the MT outputs is displayed using the 8 LEDs on my Genesys2 board, using a new 10 Hz clock, for vibe.</li>
+
+		<p>So for every new random number generated, four UART packets are streamed out to the PC.</p>
+		<pre class="line-numbers"><code id="code-mt_uart"></code></pre>
+        <script>
+          loadCodeFromFile('mt_uart.v', 'code-mt_uart', 'verilog');
+        </script>
+
+        <p>On the PC side, I wrote a short Python script (<b>stream_mt.py</b>) using the pyserial library. It listens to the serial port, grabs the incoming bytes, assembles them back into 32-bit words, and writes them into a text file — one number per line. This gives me a quick and easy way to verify that the MT output looks reasonable (or at least non-repeating!) and also lets me analyze the distribution offline.</p>
+        <pre class="line-numbers"><code id="code-stream_mt"></code></pre>
+        <script>
+          loadCodeFromFile('stream_mt.py', 'code-stream_mt', 'python');
+        </script>
+
+        <p>Finally, to make the design physically compatible with the Genesys2 board, we need to define how the logical ports in our Verilog code map to the actual FPGA pins. This is done in the constraints file (.xdc), where we also specify the electrical standards for each I/O and create a named clock. Below is the constraints snippet used in this project — it assigns the differential system clock, a reset button, LEDs for displaying the FSM state, and the UART transmit pin for streaming random numbers to the PC.</p>
+        <pre class="line-numbers"><code>
+## Clock Signal
+set_property -dict { PACKAGE_PIN AD11  IOSTANDARD LVDS     } [get_ports { sysclk_n }]; #IO_L12N_T1_MRCC_33 Sch=sysclk_n
+set_property -dict { PACKAGE_PIN AD12  IOSTANDARD LVDS     } [get_ports { sysclk_p }]; #IO_L12P_T1_MRCC_33 Sch=sysclk_p
+create_clock -name sysclk -period 5.000 [get_ports {sysclk_p}]
+
+## Buttons
+set_property -dict { PACKAGE_PIN R19   IOSTANDARD LVCMOS33 } [get_ports { reset }]; #IO_0_14 Sch=cpu_resetn
+
+## LEDs
+set_property -dict { PACKAGE_PIN T28   IOSTANDARD LVCMOS33 } [get_ports { disp_state[0] }]; #IO_L11N_T1_SRCC_14 Sch=led[0]
+set_property -dict { PACKAGE_PIN V19   IOSTANDARD LVCMOS33 } [get_ports { disp_state[1] }]; #IO_L19P_T3_A10_D26_14 Sch=led[1]
+set_property -dict { PACKAGE_PIN U30   IOSTANDARD LVCMOS33 } [get_ports { disp_state[2] }]; #IO_L15N_T2_DQS_DOUT_CSO_B_14 Sch=led[2]
+set_property -dict { PACKAGE_PIN U29   IOSTANDARD LVCMOS33 } [get_ports { disp_state[3] }]; #IO_L15P_T2_DQS_RDWR_B_14 Sch=led[3]
+set_property -dict { PACKAGE_PIN V20   IOSTANDARD LVCMOS33 } [get_ports { disp_state[4] }]; #IO_L19N_T3_A09_D25_VREF_14 Sch=led[4]
+set_property -dict { PACKAGE_PIN V26   IOSTANDARD LVCMOS33 } [get_ports { disp_state[5] }]; #IO_L16P_T2_CSI_B_14 Sch=led[5]
+set_property -dict { PACKAGE_PIN W24   IOSTANDARD LVCMOS33 } [get_ports { disp_state[6] }]; #IO_L20N_T3_A07_D23_14 Sch=led[6]
+set_property -dict { PACKAGE_PIN W23   IOSTANDARD LVCMOS33 } [get_ports { disp_state[7] }]; #IO_L20P_T3_A08_D24_14 Sch=led[7]
+
+## UART
+set_property -dict { PACKAGE_PIN Y23   IOSTANDARD LVCMOS33 } [get_ports { tx }]; #IO_L1P_T0_12 Sch=uart_rx_out
+        </code></pre>
+
+        <p>With the new design sources and the constraint file added, the project herarchy looks something like this:</p>
+        <div class="blog-image">
+            <img src="./mt/hierarchy_final.png" alt="hierarchy_final" style="width:50%;">
+        </div>
+        
+        <h3>Fire away!</h3>
+        <p>Well, all our preparations are finally done! Just head over to Vivado's <i>Project Manager</i> and run <i>Synthesis, Implementation</i>, and <i>Generate Bitstream</i> in sequence. Once the bitstream is ready, flash it onto the FPGA using Vivado's <i>Hardware Manager</i>. You should see the LEDs spring to life — a visual confirmation that the Mersenne Twister is up and running on hardware.</p>
+
+        <p>Now, to start collecting those random numbers, open your terminal and run the <b>stream_mt.py</b> Python script. That’s it. The whole setup is live, generating and streaming high-quality pseudo-random numbers straight from your FPGA to your PC.</p>
+
+        <div class="blog-image">
+            <img src="./mt/histogram.png" alt="histogram" style="width:75%;">
+        </div>
+
+        <p><i> If you’ve read this far, thanks for following along. If you spotted anything off, have suggestions to make things better, or just want to say hi and share your own experiences, I’d be genuinely happy to hear from you. Drop a message, a comment, or even a random number — I’m listening.</i></p>
+
+        </div>
+        <div id="share-section">
+            <h3>Share this post</h3>
+            <a href="https://twitter.com/share?url=https://shivamkajale.github.io/blogs/mt_on_fpga.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-twitter	"></i> Twitter
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://shivamkajale.github.io/blogs/mt_on_fpga.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?url=https://shivamkajale.github.io/blogs/mt_on_fpga.html" target="_blank" title="Share on Twitter">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+        </div>
+        
+        <div class="navigation">
+            <a href="animal_farm.html" class="nav-left">Previous</a>
+            <a href="#" class="nav-right">Next</a>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="container">
+            <h2>Contact</h2>
+            <p>   Email: skajale[at]mit[dot]edu</p>
+            <p>   Alternate Email: shivamkajale0[at]gmail[dot]com</p>
+            <div id="social-media-icons">
+                <a href="https://www.linkedin.com/in/shivam-kajale-23279b88/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=6XHSqrEAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+                <!-- Add the new email icon -->
+                <a href="mailto:skajale@mit.edu"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.instagram.com/shivam_kajale/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        <p><center>&copy; 2025 Shivam Kajale. All rights reserved.</center> </p>
+    </div>
+</footer>
+
+</body>
+</html>
