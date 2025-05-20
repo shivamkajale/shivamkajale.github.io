@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Detailed notes for FPGA implementation of a pseudo-random number generator, Mersenne Twister">
     <meta name="keywords" content="FPGA, xilinx, mersenne twister, MT19937">
-    <title>RNG using an a FPGA</title>
+    <title>RNG using an FPGA</title>
     <link rel="canonical" href="https://shivamkajale.github.io/blogs/tight_binding.html">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -36,7 +36,7 @@
             text-align: justify;
         }
         p, ol, ul, li  {
-            font-size: 1rem;  /* or 16px, or whatever your base size is */
+            font-size: 17px;  /* or 16px, or whatever your base size is */
         }
         img {
             display: block;
@@ -208,11 +208,11 @@
             background-color: #555;
         }
         mark { 
-		  background-color: #ccc;
+		  background-color: #bbb;
 		  color: #000;
 		  font-family: "Lucida Console", "Courier New", monospace;
+          font-size: 17px;
 		}
-
     </style>
     <script>
         function toggleMenu() {
@@ -268,11 +268,11 @@
             I’ll start with a quick primer on the Mersenne Twister — just enough to give you a feel for how the FSM ticks, so the Verilog code that follows actually makes some sense. Once that’s out of the way, we’ll dive into the simulation workflow: from basic behavioral simulation to the post-implementation stage. After that, I’ll walk through how to get solid, high-confidence energy estimates using Vivado’s Power Report tool, with the help of a SAIF (Switching Activity Interchange Format) file. At this point, the FPGA will be happily generating MT19937 pseudo-random numbers internally. But unless you’re planning to sit and stare at LED blinks for entropy, we’ll need to slap on a UART transmitter to stream the numbers to a PC for verification. With that UART wrapper in place, we’ll be all set to flash the code and watch a stream of Mersenne magic roll out of the FPGA.</p>
 
         <h3>A Quick Tour of the MT19937</h3>
-        <p>The Mersenne Twister is a widely-used pseudo-random number generator (PRNG) known for its long period and high-quality randomness. The "19937" part in MT19937 refers to the fact that its period is \( 2^{19937}−1 \), which is a very large prime number — specifically a Mersenne prime. That long period means it takes an absurdly long time to repeat itself, which is kind of the dream when you’re generating random numbers that shouldn’t look like they're coming from a hamster on a wheel.</p><p>
+        <p>The Mersenne Twister is a widely-used pseudo-random number generator (PRNG) known for its long period and high-quality randomness. The "19937" part in MT19937 refers to the fact that its period is \( 2^{19937}−1 \), which is a very large prime number — specifically, a Mersenne prime. This extremely long period ensures that the generator produces a sequence of numbers with minimal repetition, making it well-suited for applications requiring high-quality randomness. The original publication detailing the method can be found <a href="https://doi.org/10.1145/272991.272995">here</a>.</p><p>
         Here’s the high-level breakdown of how MT19937 works:</p>
         <ol>
             <li>Seeding: A 624-word internal state is initialized using a recurrence formula, starting from a single external seed.</li>
-            <li>Twisting: New state values are generated in chunks using XORs, shifts, and a conditional matrix multiply with a constant matrix_a.</li>
+            <li>Twisting: New state values are generated in chunks using XORs, shifts, and a conditional matrix multiply with a constant <mark>matrix_a</mark>.</li>
             <li>Tempering: The raw output from the twist is passed through a series of XOR-and-shift operations to improve statistical quality.</li>
         </ol>
 
@@ -291,25 +291,25 @@
         <li>Grabs three words from the state array,</li>
         <li>Computes a twisted value via masked bit operations and XORs,</li>
         <li>Applies tempering to the result,</li>
-        <li>Produces a final random_number and raises valid_rn.</li></ul></li>
+        <li>Produces a final <mark>random_number</mark> and raises the <mark>valid_rn</mark> flag.</li></ul></li>
         <li>S3 – TRANSIT: A guard band between SEED and TWIST to ensure memory operations complete cleanly.</li></ul>
-        <p>The transitions between states are driven by the done_seed and done_twist flags. Once initialized, the FSM loops between twisting and reseeding, generating new outputs on every cycle.</p>
+        <p>The transitions between states are driven by the <mark>done_seed</mark> and <mark>done_twist</mark> flags. Once initialized, the FSM loops between twisting and reseeding, generating new outputs on every cycle of the twisting phase.</p>
         
         <h3>Module Breakdown: Who Does What</h3>
         <p>Here’s how the Verilog modules are sliced up:</p>
-        <p><b>mt_fsm.v</b>: The central controller. It handles all state transitions and control signals for the rest of the design. Think of it as the stage manager cueing actors.</p>
+        <p><b>mt_fsm.v</b>: The central controller. It handles all state transitions and control signals for the rest of the design, in accordance with the FSM described above.</p>
         <pre class="line-numbers"><code id="code-mt_fsm"></code></pre>
         <script>
           loadCodeFromFile('mt_fsm.v', 'code-mt_fsm', 'verilog');
         </script>
-        <p><b>mt_seed.v</b>: Responsible for seeding the MT state array. It iterates through all 624 indices, calculating and writing new values using the initialization recurrence. When done, it asserts done_seed.</p>
+        <p><b>mt_seed.v</b>: Responsible for seeding the MT state array. It iterates through all 624 indices, calculating and writing new values using the initialization recurrence. When done, it asserts <mark>done_seed</mark>.</p>
         <pre class="line-numbers"><code id="code-mt_seed"></code></pre>
         <script>
           loadCodeFromFile('mt_seed.v', 'code-mt_seed', 'verilog');
         </script>
-        <p><b>mt_twist.v</b>: This one handles the magic. For each cycle:<ul>
+        <p><b>mt_twist.v</b>: This one handles the core of the algorithm. For each cycle:<ul>
         <li>It calculates the new twisted value using neighboring entries of the state array.</li>
-        <li>Performs the tempering step using constants from the MT19937 spec:</li>
+        <li>Performs the tempering step using constants from the MT19937 specs.</li>
         <li>Outputs a valid 32-bit pseudo-random number and writes the updated state back.</li></ul></p>
         <pre class="line-numbers"><code id="code-mt_twist"></code></pre>
         <script>
@@ -325,7 +325,7 @@
         <h3>Running the Behavioral simulation</h3>
         <p>As the name suggests, behavioral simulation is about verifying whether your digital design "behaves" as intended — before you go anywhere near actual hardware. For the Mersenne Twister implemented here, the goal of simulation is to check whether the FSM cycles correctly between seeding the state memory and performing the twist/temper operation, and whether the output <mark>random_number</mark> stream looks valid — ideally, uniform over the 32-bit range. What makes this process powerful is the waveform database: it logs how every signal in your design changes over time. This becomes an essential tool for debugging, letting you visually trace issues like stuck states, incorrect transitions, or invalid outputs — long before you flash anything onto an FPGA.</p>
         
-        <p>To run a behavioral simulation, you need to write a testbench — a kind of wrapper module that mimics the real-world environment your design would operate in. The testbench doesn’t get synthesized or loaded onto the FPGA. Its only job is to stimulate your design with clock signals, resets, and inputs, and to observe outputs, just like a virtual lab setup.</p>
+        <p>To run a behavioral simulation, you need to write a "testbench" — a kind of wrapper module that mimics the real-world environment your design would operate in. The testbench doesn’t get synthesized or loaded onto the FPGA. Its only job is to stimulate your design with clock signals, resets, and inputs, and to observe outputs, just like a virtual lab setup.</p>
 
 		<p>In this project, the testbench file <b>tb_mt_fsm.v</b> instantiates the top-level module <b>mt_fsm</b>. It drives the <mark>clk</mark> and <mark>rst</mark> lines, provides an <mark>external_seed</mark> value, and toggles the <mark>external_seed_enable</mark> flag to kick off the FSM. It also captures the output signals <mark>random_number</mark> and <mark>valid_rn</mark>, and writes the random numbers to a text file so we can inspect them offline.</p>
 
@@ -334,7 +334,7 @@
           loadCodeFromFile('tb_mt_fsm.v', 'code-tb_mt_fsm', 'verilog');
         </script>
 
-		<p>At this stage, the project files hierarchy in Vivado should look something like the screenshot below - <b>mt_fsm.v</b> is the top-level "Design Source" and <b>tb_mt_fsm.v</b> is the top-level "Simulation Source". With that verified, we can simply go to <i>Simulation >> Run Simulation</i> in the <i>Project Manager</i> on Vivado and click <i>Run Behavioral Simulation</i> to trigger the simulation.</p>
+		<p>At this stage, the project files hierarchy in Vivado should look something like the screenshot below - <b>mt_fsm.v</b> is the top-level <i>Design Source</i> and <b>tb_mt_fsm.v</b> is the top-level <i>Simulation Source</i>. With that verified, we can simply go to <i>Simulation >> Run Simulation</i> in the <i>Project Manager</i> on Vivado and click <i>Run Behavioral Simulation</i> to trigger the simulation.</p>
 
 		<div class="blog-image">
             <img src="./mt/hierarchy_simulations.png" alt="hierarchy_simulations" style="width:50%;">
@@ -344,17 +344,17 @@
 
         <p>By this point, the behavioral simulation has verified that the design works as expected. But before flashing it onto the FPGA, it’s wise to run a few more checks. We want to know whether the design will operate reliably at the target clock frequency, how much power it might consume, and whether it risks heating up during sustained operation. These questions are addressed through Vivado’s <i>Synthesis</i> and <i>Implementation</i> stages. Once <i>Implementation</i> completes, Vivado provides a <i>Utilization Report</i> that tells us how many FPGA resources — like LUTs, flip-flops, and DSPs — the design consumes. It also generates a <i>Timing Report</i>, where metrics like the Worst Negative Slack and Worst Hold Slack let us assess whether the design meets timing requirements.</p>
 		
-		<p>Vivado also provides a <i>Power Report</i> at this stage, but the numbers in that report are based on internal heuristics about signal switching activity. In other words, it makes educated guesses about how often each signal toggles per second. This can be misleading, especially for designs like a pseudo-random number generator, where some signals might switch very frequently while others rarely do. To improve accuracy, we can generate a SAIF file — a Switching Activity Interchange Format file — that records actual signal transitions during a <i>Post-Implementation Functional Simulation</i>. This simulation uses the same design and testbench as before, but with the added instruction for Vivado to track how many times each signal flips. Once the simulation runs long enough — say, until one million random numbers have been generated — we end up with a detailed and realistic estimate of each signal’s activity. Feeding this SAIF file back into Vivado lets the tool refine its <i>Power Report</i>, giving you a much more trustworthy estimate of your design’s real-world power consumption. To enable logging a SAIF file, we can use the <i>Simulation Settings</i>, and populate the required details as shown below.</p>
+		<p>Vivado also provides a <i>Power Report</i> at this stage, but the numbers in that report are based on internal heuristics about signal switching activity. In other words, it makes educated guesses about how often each signal toggles per second. This can be misleading, especially for designs like a pseudo-random number generator, where some signals might switch very frequently while others rarely do. To improve accuracy, we can generate a SAIF file — a Switching Activity Interchange Format file — that records actual signal transitions during a <i>Post-Implementation Functional Simulation</i>. This simulation uses the same design and testbench as before, but with the added instructions for Vivado to track how many times each signal flips. Once the simulation runs long enough — say, until one million random numbers have been generated — we end up with a detailed and realistic estimate of each signal’s activity. Feeding this SAIF file back into Vivado lets the tool refine its <i>Power Report</i>, giving you a much more trustworthy estimate of your design’s real-world power consumption. To enable logging a SAIF file, we can use the <i>Simulation Settings</i>, and populate the required details as shown below.</p>
 
 		<div class="blog-image">
             <img src="./mt/saif_settings.png" alt="saif_settings" style="width:50%;">
         </div>
 
-        <p>Additionally, we  must specify a clock constraint to seed allow timing analysis during Implementation. This can be done by simply adding a constraints.xdc file to the project as a <i>Constraints</i> source, and the file just needs one line of code </p>
+        <p>Additionally, we  must specify a clock constraint to allow timing analysis during <i>Implementation</i>. This can be done by simply adding a <b>constraints.xdc</b> file to the project as a <i>Constraints</i> source, and the file just needs one line of code </p>
 
         <pre class="line-numbers"><code>create_clock -name clk -period 30.000 [get_ports {clk}];</code></pre>
 
-        <p>Here, the period is specified in nanoseconds. With the SAIF related settings done and the <mark>clk</mark> constraint defined, we can now proceed to run the <i>Post-Implementation Functional Simulation</i>. Once the simulation is complete, the SAIF file can be fed to Vivado's <i>Power Report</i> dialog box and to generate a high-confidence estimate of our design's power consumption at the specified clock frequency.</p>
+        <p>Here, the period is specified in nanoseconds. With the SAIF related settings done and the <mark>clk</mark> constraint defined, we can now proceed to run the <i>Post-Implementation Functional Simulation</i>. Once the simulation is complete, the SAIF file can be fed to Vivado's <i>Power Report</i> dialog box which then generates a detailed, high-confidence estimate of our design's power consumption at the specified clock frequency.</p>
 
         <div class="blog-image">
             <img src="./mt/power_report.png" alt="power_report" style="width:100%;">
